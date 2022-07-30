@@ -1,25 +1,36 @@
-import logo from './logo.svg';
+import EventList from './components/EventList';
 import './App.css';
+import { fetchAllEvents } from './services/services';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import EventForm from './components/EventForm';
 
 function App() {
+  const [loadedEvents, setLoadedEvents] = useState([])
+
+  const getAllEvents = async () => {
+    const events = await fetchAllEvents()
+     setLoadedEvents(events)
+     return loadedEvents
+  }
+
+  useEffect(() => {
+   getAllEvents()
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='container'>
+      {loadedEvents && 
+    <EventList events={loadedEvents}/>
+      }
+    <EventForm/>
     </div>
+    
   );
+
+ 
 }
 
 export default App;
+
+
