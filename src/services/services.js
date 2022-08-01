@@ -1,6 +1,6 @@
 
 export function fetchAllEvents(){
-    return fetch('http://localhost:5000/events')
+    return fetch('http://localhost:5000/eventU', {headers:{authorization: localStorage.getItem('token')}})
     .then(response => {
         return response.json()
     }).then(data => {
@@ -39,6 +39,21 @@ export function newEvent(event){
             "Content-Type": "application/json"
         }, 
         body: JSON.stringify(event)
+    }
+    ).then(response=> {
+        return response.json()
+    }).then(data => {
+        return data
+    })
+}
+
+export function loginClient(combo){
+    return fetch('http://localhost:5000/login',{
+        method:'POST', 
+        headers: {
+            "Content-Type": "application/json"
+        }, 
+        body: JSON.stringify(combo)
     }
     ).then(response=> {
         return response.json()

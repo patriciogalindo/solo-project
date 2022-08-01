@@ -4,6 +4,7 @@ import { fetchAllEvents } from './services/services';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import EventForm from './components/EventForm';
+import Login from './components/Login';
 
 function App() {
   const [loadedEvents, setLoadedEvents] = useState([])
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <div className='container'>
+      <Login/>
       {loadedEvents && 
     <EventList events={loadedEvents}/>
       }
