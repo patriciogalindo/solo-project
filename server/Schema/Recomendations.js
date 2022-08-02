@@ -11,7 +11,7 @@ const Recomendation = new mongoose.Schema({
         ref: "Event"
     },
             venue:String,
-            votes: Number
+            votes:Number
 })
 
 module.exports = mongoose.model('Recomendation', Recomendation)

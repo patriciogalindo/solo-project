@@ -8,7 +8,6 @@ const jwt = require('jsonwebtoken')
 async function getAllUsers(req, res){
     try{
         const users = await User.find();
-        console.log(users)
         res.status(200) 
         res.send(users)       
       } catch(err){
@@ -18,8 +17,7 @@ async function getAllUsers(req, res){
 
 async function getUser(req, res){
   try{
-      const user = await User.findById(req.params.id);
-      console.log(user)
+      const user = await User.findById(req.user._id);
       res.status(200) 
       res.send(user)       
     } catch(err){
@@ -31,7 +29,6 @@ async function getUser(req, res){
 
 async function addUser(req, res){
     try{
-      console.log(req.body)
       bcrypt.hash(req.body.password, 10,  async (err, hash) => { 
         const newUser = await User.create({
           username: req.body.username,
@@ -50,9 +47,7 @@ async function login(req, res){
   try{
     const {username, password} = req.body;
     const newFind = await User.findOne({username})
-    console.log(newFind.password, password)
     const isValid = await bcrypt.compare(password, newFind.password)
-    console.log(isValid)
     if(!isValid) return res.send(alert("error!"))
     const token = jwt.sign({
       _id: newFind._id
@@ -78,16 +73,15 @@ async function getAllEvents(req, res){
       res.status(200) 
       res.send(events)       
     } catch(err){
-      console.log(err)
+
       res.sendStatus(500)
     }
 }
 
 async function getEventbyUserIdOfGuest(req, res){
   try{
-      // const events = await Event.find({"guests._id": "62e591b236b53ba551bfd296"});
+
       const events = await Event.find({ guests : { $all : [req.user._id] }}).populate('guests').populate('owner')
-      console.log(req.user)
       res.status(200) 
       res.send(events)       
     } catch(err){
@@ -97,7 +91,12 @@ async function getEventbyUserIdOfGuest(req, res){
 
 async function addEvent(req, res){
   try{
-      const event = req.body
+      const event = {
+      "owner": req.user._id,
+      "date": req.body.date, 
+      "guests": req.body.guests
+      }
+      console.log(event)
       const newEvent =  await Event.create(event)
        res.send(newEvent)
   } catch(error){
@@ -107,7 +106,6 @@ async function addEvent(req, res){
 
 async function getEvent(req, res){
   try{
-    console.log(req.params)
       const event = await Event.findById(req.params.eventid);
       res.status(200) 
       res.send(event)       
@@ -118,7 +116,13 @@ async function getEvent(req, res){
 
 async function addRecomendation(req, res){
   try{
-      const newRecomendation =  await Recomendation.create(req.body)
+      const data = {
+        "owner": req.user._id,
+        "event": req.body.event, 
+        "venue": req.body.venue,
+        "votes": req.body.votes
+      }
+      const newRecomendation =  await Recomendation.create(data)
        res.send(newRecomendation)
   } catch(error){
       res.sendStatus(500)
@@ -127,7 +131,7 @@ async function addRecomendation(req, res){
 
 async function getRecomendationsbyEventId(req, res){
   try{
-      const events = await Recomendation.find({"event": req.params.eventid});
+      const events = await Recomendation.find({"event": req.params.eventid}).sort({"votes": "desc"}).exec();
       res.status(200) 
       res.send(events)       
     } catch(err){
@@ -137,17 +141,28 @@ async function getRecomendationsbyEventId(req, res){
 
 async function addVote(req, res){
   try{
-      const vote = req.body
-      const newVote =  await Vote.create(vote)
+    const data = {
+      "owner": req.user._id,
+      "event": req.body.event, 
+      "recomendation": req.body.recomendation
+    }
+    console.log(req.body, "felipe")
+      const newVote =  await Vote.create(data)
+      await Recomendation.findByIdAndUpdate( 
+        {_id:req.body.recomendation},
+        {$inc: {votes:1}},
+        {new: true}
+        )
        res.send(newVote)
   } catch(error){
       res.sendStatus(500)
   }
 }
+
   
-  async function getVotesbyEvent(req, res){
+  async function getVotesbyUserId(req, res){
     try{
-        const votes = await Vote.find({"event": req.params.eventid});
+        const votes = await Vote.find({"owner": req.user._id});
         res.status(200) 
         res.send(votes)       
       } catch(err){
@@ -155,8 +170,23 @@ async function addVote(req, res){
       }
   }
 
+  async function addVotetoRec(req, res){
+    try{
+      console.log(req)
+    const vote = await Recomendation.findOneAndUpdate(
+      {_id:req.params.id},
+      {$inc: {votes:1}},
+      {new: true}
+      )
+      res.send(vote)
+      return res.sendStatus(200)
+  } catch(err){
+    res.sendStatus(500)
+  }
+}
+
 
 module.exports =  {
 addUser, getAllUsers, getAllEvents, addEvent, getUser, getEvent, getEventbyUserIdOfGuest, 
-addRecomendation, getRecomendationsbyEventId, addVote, getVotesbyEvent, login, me
+addRecomendation, getRecomendationsbyEventId, addVote, getVotesbyUserId, login, me, addVotetoRec
 };

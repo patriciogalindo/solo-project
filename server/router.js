@@ -6,15 +6,32 @@ const { authMiddleware } = require('./middleware/Authmiddleware')
 
 router.get('/users', controller.getAllUsers) //WORKS 
 router.post('/users', controller.addUser) // WORKS
-router.get('/events', controller.getAllEvents) // WORKS
-router.post('/events', controller.addEvent) // WORKS
-router.get('/user/:id', controller.getUser) //WORKS
+router.get('/events',authMiddleware, controller.getAllEvents) // WORKS
+router.post('/events', authMiddleware,  controller.addEvent) // WORKS
+
+
+router.get('/user/getbyId',authMiddleware, controller.getUser) //WORKS
+
+
+
 router.get('/event/:eventid', controller.getEvent)  //WORKS
 router.get('/eventU', authMiddleware, controller.getEventbyUserIdOfGuest) // WORKS
+
+
 router.post('/event/addRecomendation', authMiddleware, controller.addRecomendation) //WORKS
+
+
 router.get('/event/recomendations/:eventid', controller.getRecomendationsbyEventId) //WORKS
-router.post('/event/recomendation/addVote', controller.addVote) // WORKS
-router.get('/event/votes/:eventid', controller.getVotesbyEvent) //Works
+router.post('/event/recomendation/addVote', authMiddleware, controller.addVote) // WORKS
+
+
+// ------------------------------------here---------------------------
+router.put('/addvote/recomendation', controller.addVotetoRec)
+// ------------------------------------here---------------------------
+
+router.get('/event/votes/userId', authMiddleware,  controller.getVotesbyUserId) 
+
+
 router.post('/login', controller.login) 
 router.get('/login', authMiddleware,  controller.me)
 

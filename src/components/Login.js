@@ -1,12 +1,15 @@
-import { useState } from "react"
+import {  useState } from "react"
 import React from 'react'
 import {loginClient} from '../services/services'
+
 
 
 
 function Login() {
  const [password, setPassword] = useState('')
  const [username, setUsername] = useState('')
+
+
 
     const handleClick = async (e) => {
         e.preventDefault()
@@ -26,8 +29,6 @@ function Login() {
             <input type="text" name="password" onChange={(e) => setPassword(e.target.value) }></input>
             <button type='submit'> Login </button>
         </form>
-
-
     </div>
   )
 }
