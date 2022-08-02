@@ -19,8 +19,7 @@ function EventForm(props) {
   }
 
 
-
-   const handleClick = (e) => {
+   const handleClick = async (e) => {
     e.preventDefault()
     setDate(e.target.dateForm.value)  
 
@@ -28,9 +27,10 @@ function EventForm(props) {
       "date": date,
       "guests": guestInvited,
     }
-    newEvent(event)
-    e.target.reset() 
-    props.getAllEvents()
+
+    await newEvent(event)
+    await e.target.reset() 
+    await props.getAllEvents()
   }
 
 

@@ -12,7 +12,7 @@ function SuggestionForm(props) {
             "venue": venue, 
             "votes": 0
         }
-        addRecomendation(newRecomendation)
+        await addRecomendation(newRecomendation)
         await props.getRecomendations()
         
     }

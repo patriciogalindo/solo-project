@@ -81,7 +81,7 @@ async function getAllEvents(req, res){
 async function getEventbyUserIdOfGuest(req, res){
   try{
 
-      const events = await Event.find({ guests : { $all : [req.user._id] }}).populate('guests').populate('owner')
+      const events = await Event.find({ guests : { $all : [req.user._id] }}).populate('guests').populate('owner').sort({date: 'asc'}).exec()
       res.status(200) 
       res.send(events)       
     } catch(err){
@@ -96,7 +96,6 @@ async function addEvent(req, res){
       "date": req.body.date, 
       "guests": req.body.guests
       }
-      console.log(event)
       const newEvent =  await Event.create(event)
        res.send(newEvent)
   } catch(error){
@@ -146,7 +145,6 @@ async function addVote(req, res){
       "event": req.body.event, 
       "recomendation": req.body.recomendation
     }
-    console.log(req.body, "felipe")
       const newVote =  await Vote.create(data)
       await Recomendation.findByIdAndUpdate( 
         {_id:req.body.recomendation},
@@ -172,7 +170,6 @@ async function addVote(req, res){
 
   async function addVotetoRec(req, res){
     try{
-      console.log(req)
     const vote = await Recomendation.findOneAndUpdate(
       {_id:req.params.id},
       {$inc: {votes:1}},

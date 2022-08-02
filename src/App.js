@@ -41,9 +41,7 @@ function App() {
   return (
  
     <mainContext.Provider  value={{userContext, setUserContext}}>
-    <div className='container'>
-
-
+    <div className='main-container'>
 
     {localStorage.length !== 1 &&
       <>    
@@ -54,13 +52,13 @@ function App() {
     }
    
       {localStorage.length === 1 && 
-      <>      
+      <div>      
     <Logout/>
     <EventList events={loadedEvents}/>
     <EventForm
     getAllEvents = {getAllEvents}
     />
-    </>
+    </div>
 
       }
     

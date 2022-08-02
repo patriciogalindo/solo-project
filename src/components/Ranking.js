@@ -12,7 +12,7 @@ function Ranking(props) {
 
       useEffect(() => {
         getAllVotes()
-      }, [])
+      }, [loadedVotes])
 
 
 
@@ -24,11 +24,17 @@ function Ranking(props) {
             }
   
         await addVote(vote)
-        await props.getRecomendations()
         await getAllVotes()
+        await checkVotes()
+        await props.getRecomendations()
+        
+        
     }
 
-
+      function checkVotes(propEl){
+       const bool =  loadedVotes.some(e => e.event === propEl)
+       return bool
+      }
     
 
   return (
@@ -36,7 +42,7 @@ function Ranking(props) {
     <div className='venue'>{props.venue}</div>
     <div className='votes'>{props.votes}</div>
 
-    {loadedVotes.some(e => e.event === props.event) === false && 
+    {checkVotes(props.event) === false && 
        <button data-event-id={props.event} data-recomendation-id={props.id}  onClick={handleClick}> 
        Vote
    </button>

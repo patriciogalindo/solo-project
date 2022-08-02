@@ -10,14 +10,12 @@ function Login() {
  const [username, setUsername] = useState('')
 
 
-
     const handleClick = async (e) => {
         e.preventDefault()
         const combo = {
             "username": username,
             "password": password
-        }
-        
+        }        
         const data = await loginClient(combo)
         localStorage.setItem('token', data.token)
     }
