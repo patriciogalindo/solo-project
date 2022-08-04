@@ -44,20 +44,33 @@ function App() {
     <div className='main-container'>
 
     {localStorage.length !== 1 &&
-      <>    
+      <div className='loginPage'>    
+        <div className='login'>
       <Login/>
+      </div>
+      <div className='register'>
        <Register/>
-       </> 
+       </div>
+       </div> 
       
     }
    
       {localStorage.length === 1 && 
-      <div>      
-    <Logout/>
-    <EventList events={loadedEvents}/>
-    <EventForm
-    getAllEvents = {getAllEvents}
-    />
+      <div id = 'secondaryContainer'>   
+        
+        <div id = 'eventListCOntainer'>
+          
+          <EventList events={loadedEvents}/>
+        </div>
+        <div id = 'eventFormContainer'>
+          <EventForm
+          getAllEvents = {getAllEvents}
+          />
+        </div>
+
+        <div className='logout-btn'>   
+          <Logout/>
+        </div>
     </div>
 
       }

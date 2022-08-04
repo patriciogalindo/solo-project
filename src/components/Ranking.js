@@ -1,6 +1,9 @@
 import React, { useEffect, useState} from 'react'
 import {addVote, votesByUserId} from '../services/services'
 import './Ranking.css'
+import Paper from '@mui/material/Paper';
+import { Button } from '@mui/material';
+
 
 function Ranking(props) {
     const [loadedVotes, setLoadedVotes] = useState([])
@@ -15,7 +18,6 @@ function Ranking(props) {
       }, [loadedVotes])
 
 
-
     const handleClick = async (e) => {
         const vote = 
             {
@@ -26,30 +28,37 @@ function Ranking(props) {
         await addVote(vote)
         await getAllVotes()
         await checkVotes()
-        await props.getRecomendations()
-        
-        
-    }
+        await props.getRecomendations()    
+        }
 
       function checkVotes(propEl){
        const bool =  loadedVotes.some(e => e.event === propEl)
        return bool
       }
-    
+
 
   return (
-    <div>
-    <div className='venue'>{props.venue}</div>
-    <div className='votes'>{props.votes}</div>
+    <>
+    <Paper elevation={2}  style=
+    {{height:30, 
+      padding:5,
+      marginTop:2,
+      backgroundColor: props.highlight ? "lightgreen" : "transparent",
+      color: props.highlight ? "blue" : "black"
+    }}  className='ranking-list'>
+    <div className='venue'> Venue: {props.venue}</div>
+    <div className='votes'> Votes: {props.votes}</div>
 
     {checkVotes(props.event) === false && 
-       <button data-event-id={props.event} data-recomendation-id={props.id}  onClick={handleClick}> 
+       <Button
+        style={{
+          color: props.highlight ? "blue" : "lightblue"
+        }}
+       data-event-id={props.event} data-recomendation-id={props.id}  onClick={handleClick}> 
        Vote
-   </button>
-    }
-     
- 
-    </div>
+   </Button>
+    }</Paper>
+    </>
   )
 }
 

@@ -1,0 +1,28 @@
+.form-class{
+    margin-top: 5px;
+}
+
+.checkbox-class{
+    margin-left: 5px;
+    width: 200px;
+    margin-bottom: 10px;
+
+}
+
+input{
+    margin-left: 10px;
+}
+
+event-form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#h1-form{
+    margin-bottom: 30px;
+    justify-content: center;
+    display: flex;
+    margin-top: 10px;
+
+}

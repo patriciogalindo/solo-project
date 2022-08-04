@@ -21,8 +21,8 @@ function Register() {
 
   return (
     <form onSubmit={handleClick}>
-    <input type="text" name="username" onChange={(e) => setUsername(e.target.value) }></input> 
-    <input type="text" name="password" onChange={(e) => setPassword(e.target.value) }></input>
+    <input type="text" name="username"  placeholder="username"  onChange={(e) => setUsername(e.target.value) }></input> 
+    <input type="text" name="password"  placeholder="password"  onChange={(e) => setPassword(e.target.value) }></input>
     <button type='submit'> Register </button>
 </form>
   )

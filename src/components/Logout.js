@@ -1,4 +1,6 @@
 import React from 'react'
+import Button from '@mui/material/Button';
+
 
 function Logout() {
     const logoutButton = () => {
@@ -7,9 +9,9 @@ function Logout() {
 
 
   return (
-    <button onClick={logoutButton}>
+    <Button variant='contained' onClick={logoutButton}>
         Logout
-    </button>
+    </Button>
   )
 }
 

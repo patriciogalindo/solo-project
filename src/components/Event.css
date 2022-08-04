@@ -2,14 +2,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 800px;
+    width: 600px;
     border: solid 1px black;
     border-radius: 4px;
-    margin-bottom: 10px;
 }
 .content-container{
 display: flex;
 flex-direction: column;
+margin-left: 10px;
+width:40%;
 }
 
 .content{
@@ -17,10 +18,20 @@ flex-direction: column;
     margin-top: 10px;
     flex-direction: column;
     margin-bottom: 10px;
+    margin-left:2px;
+}
+
+.guestsContainer{
+    display: flex;
+    flex-direction: column;
 }
 
 .ranking-container{
 display: flex;
 flex-direction: column;
-margin-left: 40px;
+justify-content: space-between;
+margin-bottom: 10px;
+margin-right: 10px;
+margin-top:10px;
+width: 60%;
 }
