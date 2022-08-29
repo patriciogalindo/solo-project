@@ -13,11 +13,7 @@ function Register() {
         }
         registerClient(combo)
         e.target.reset()    
-    }
-
-    
-
-
+    } 
 
   return (
     <form onSubmit={handleClick}>

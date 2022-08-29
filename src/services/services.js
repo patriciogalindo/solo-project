@@ -66,6 +66,8 @@ export function loginClient(combo){
     })
 }
 
+///////////////////////////////////////
+
 export function registerClient(combo){
     return fetch('http://localhost:5000/users',  {
         method: 'POST',
@@ -80,6 +82,9 @@ export function registerClient(combo){
     })
 }
 
+
+///////////////////////////////
+
 export function fetchAllUsers(){
     return fetch('http://localhost:5000/users')
     .then(response => {
@@ -88,6 +93,10 @@ export function fetchAllUsers(){
         return data
     })
 }
+
+
+////////////////////////
+
 
 export function addRecomendation (recomendation){
     return fetch('http://localhost:5000/event/addRecomendation',{

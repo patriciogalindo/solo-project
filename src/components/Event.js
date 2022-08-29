@@ -1,18 +1,18 @@
 import React, { useEffect, useState,useContext } from 'react';
-import Ranking from './Ranking';
-import {fetchRecomendations} from '../services/services'
+import {fetchRecomendations, addVote, votesByUserId} from '../services/services'
 import './Event.css'
 import moment from "moment";
 import SuggestionForm from './SuggestionForm';
 import { mainContext } from '../helper/Context'
 import Card from '@mui/material/Card';
 import { Paper } from '@mui/material';
-
+import { Button } from '@mui/material';
 
 
 
 function Event(props) {
   const [loadedRecomendations, setLoadedRecomendations] = useState([])
+  const [loadedVotes, setLoadedVotes] = useState([])
   const {userContext} = useContext(mainContext)
 
 
@@ -24,9 +24,32 @@ function Event(props) {
 
   useEffect(() => {
     getRecomendations()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadedVotes])
+
+  const getAllVotes = async () => {
+    const votes = await votesByUserId()
+     setLoadedVotes(votes)
+  }
+
+  useEffect(() => {
+    getAllVotes()
   }, [])
 
+const handleClick = async (e) => {
+    const vote = 
+        {
+            recomendation: e.target.dataset.recomendationId,
+            event: e.target.dataset.eventId
+        }            
+    await addVote(vote)
+    await getAllVotes()
+    }
 
+  function checkVotes(propEl){
+   const bool =  loadedVotes.some(e => e.event === propEl)
+   return bool       
+  }
 
 
   return (
@@ -74,22 +97,31 @@ function Event(props) {
       
     </div>
 
+<div className='ranking-container'>
+{loadedRecomendations.map((rec, index) => {
+  return <div>
+    <Paper elevation={2}  style=
+    {{height:30, 
+      padding:5,
+      marginTop:2,
+      backgroundColor: index === 0 ? "lightgreen" : "transparent",
+      color: index === 0 ? "blue" : "black"
+    }}  className='ranking-list'>
+    <div className='venue'> Venue: {rec.venue}</div>
+    <div className='votes'> Votes: {rec.votes}</div>
 
-
-    <div className='ranking-container'>
-      <div className='loaded-recomendations'>
-      {loadedRecomendations.map((rec, index) => {
-        return <Ranking 
-        key={rec._id}
-        venue= {rec.venue}
-        event={rec.event}
-        id={rec._id}
-        votes={rec.votes}
-        getRecomendations = {getRecomendations}
-        highlight={index === 0}
-        />      
-      })}
-      </div>
+    {checkVotes(rec.event) === false && 
+       <Button
+        style={{
+          color: index === 0 ? "blue" : "lightblue"
+        }}
+       data-event-id={rec.event} data-recomendation-id={rec._id}  onClick={handleClick}> 
+       Vote
+   </Button>
+    }</Paper>
+    </div>
+})}
+</div>      
 
       <div className='suggestion-form'>
 {loadedRecomendations.some(e => e.owner === userContext._id) === false && 
@@ -99,11 +131,6 @@ function Event(props) {
     /> 
     } 
     </div>
-
-    
-    </div>
-
-
     </Card>
   )
 }

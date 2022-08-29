@@ -12,11 +12,11 @@ import {mainContext} from './helper/Context'
 
 function App() {
   const [loadedEvents, setLoadedEvents] = useState([])
+  const [userContext, setUserContext] = useState({})
 
   const getAllEvents = async () => {
     const events = await fetchAllEvents()
      setLoadedEvents(events)
-     return loadedEvents
   }
 
   const getuser = async () => {
@@ -31,12 +31,6 @@ function App() {
   useEffect(() => {
    getAllEvents()
   },[])
-
-
-
-  const [userContext, setUserContext] = useState({})
-
-
 
   return (
  
@@ -56,9 +50,8 @@ function App() {
     }
    
       {localStorage.length === 1 && 
-      <div id = 'secondaryContainer'>   
-        
-        <div id = 'eventListCOntainer'>
+      <div id = 'secondaryContainer'>           
+        <div id = 'eventListContainer'>
           
           <EventList events={loadedEvents}/>
         </div>
