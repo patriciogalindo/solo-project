@@ -29,9 +29,8 @@ function EventForm(props) {
 
     const event = {
       "date": date,
-      "guests": guestInvited,
+      "guests": guestInvited
     }
-
     await newEvent(event)
     await e.target.reset() 
     await props.getAllEvents()
@@ -46,6 +45,7 @@ function EventForm(props) {
 
   useEffect(() => {
     getUsers()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   return (
