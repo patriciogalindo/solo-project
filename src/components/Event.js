@@ -63,6 +63,15 @@ const handleClick = async (e) => {
       }} >
       <div className='content-container'>
 
+      <Paper style={{
+        width:200, 
+        height:30,
+        backgroundColor: "blue",
+        color: 'white', 
+        fontWeight:'bold'
+      
+      }} className="content"> Event Name: {props.ename}</Paper>
+
     <Paper style={{
         width:200, 
         height:30,
@@ -71,6 +80,8 @@ const handleClick = async (e) => {
         fontWeight:'bold'
       
       }} className="content"> Created by: {props.owner.username}</Paper>
+
+
     <Paper style={{
         width:200, 
         height:30,
@@ -79,7 +90,7 @@ const handleClick = async (e) => {
         fontWeight:'bold',
       }} className="content"> Date: {moment(props.date).format("MMM Do YY")} </Paper>
 
-
+      
 
     
     <div className = 'guestsContainer'>

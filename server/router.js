@@ -8,7 +8,12 @@ router.get('/users', controller.getAllUsers) //WORKS
 router.post('/users', controller.addUser) // WORKS
 router.get('/events',authMiddleware, controller.getAllEvents) // WORKS
 router.post('/events', authMiddleware,  controller.addEvent) // WORKS
+router.post('/invitation', authMiddleware, controller.sendInvitation)// WORKS
+router.get('/invitation', authMiddleware, controller.getInvitationsbyId)// WORKS
+router.delete('/invitation', controller.deleteInvitation)// WORKS
+router.patch('/invitation', authMiddleware, controller.acceptInvitation)
 
+/////////
 
 router.get('/user/getbyId',authMiddleware, controller.getUser) //WORKS
 
@@ -34,6 +39,8 @@ router.get('/event/votes/userId', authMiddleware,  controller.getVotesbyUserId)
 
 router.post('/login', controller.login) 
 router.get('/login', authMiddleware,  controller.me)
+
+
 
 
 module.exports = router;

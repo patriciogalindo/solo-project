@@ -8,6 +8,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Logout from './components/Logout';
 import {mainContext} from './helper/Context'
+import AddFriend from './components/AddFriend';
 
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
     <mainContext.Provider  value={{userContext, setUserContext}}>
     <div className='main-container'>
 
-    {localStorage.length !== 1 &&
+    {localStorage.length === 0 &&
       <div className='loginPage'>    
         <div className='login'>
       <Login/>
@@ -49,7 +50,7 @@ function App() {
       
     }
    
-      {localStorage.length === 1 && 
+      {localStorage.length > 0 && 
       <div id = 'secondaryContainer'>           
         <div id = 'eventListContainer'>
           
@@ -67,6 +68,8 @@ function App() {
     </div>
 
       }
+
+      <AddFriend/>
     
     </div>
     </mainContext.Provider>

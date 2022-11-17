@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 5000;
+const port = 3100;
 const router = require('./router')
 const cors = require('cors')
 
@@ -15,4 +15,4 @@ app.listen(port, () => {
 })
 
 
-module.exports = app;
+module.exports = app; 

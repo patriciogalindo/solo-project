@@ -1,21 +1,15 @@
 const mongoose = require('../db');
 const { Schema } = require('mongoose');
 
-const Event = new mongoose.Schema({
-    date: Date,
-    ename : String,
+const Invitation = new mongoose.Schema({
     owner:{   
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    guests: [
-            {
+    invitee: {
                 type: Schema.Types.ObjectId,
                 ref: "User"
-            }
-    ]
+            },
 })
 
-module.exports = mongoose.model('Event', Event)
-
-
+module.exports = mongoose.model('Invitation', Invitation)

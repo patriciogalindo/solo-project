@@ -1,6 +1,6 @@
 
 export function fetchAllEvents(){
-    return fetch('http://localhost:5000/eventU', {headers:{authorization: localStorage.getItem('token')}})
+    return fetch('http://localhost:3100/eventU', {headers:{authorization: localStorage.getItem('token')}})
     .then(response => {
         return response.json()
     }).then(data => {
@@ -9,7 +9,7 @@ export function fetchAllEvents(){
 }
 
 export function fetchRecomendations(id){
-    return fetch(`http://localhost:5000/event/recomendations/${id}`)
+    return fetch(`http://localhost:3100/event/recomendations/${id}`)
     .then(response => {
         return response.json()
     }).then(data => {
@@ -18,7 +18,7 @@ export function fetchRecomendations(id){
 }
 
 export function addVote (vote){
-    return fetch('http://localhost:5000/event/recomendation/addVote',{
+    return fetch('http://localhost:3100/event/recomendation/addVote',{
         method: 'POST', 
         headers: {
             "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export function addVote (vote){
 
 
 export function newEvent(event){
-    return fetch('http://localhost:5000/events',{
+    return fetch('http://localhost:3100/events',{
         method:'POST', 
         headers: {
             "Content-Type": "application/json",
@@ -52,7 +52,7 @@ export function newEvent(event){
 }
 
 export function loginClient(combo){
-    return fetch('http://localhost:5000/login',{
+    return fetch('http://localhost:3100/login',{
         method:'POST', 
         headers: {
             "Content-Type": "application/json"
@@ -67,7 +67,7 @@ export function loginClient(combo){
 }
 
 export function registerClient(combo){
-    return fetch('http://localhost:5000/users',  {
+    return fetch('http://localhost:3100/users',  {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -81,7 +81,7 @@ export function registerClient(combo){
 }
 
 export function fetchAllUsers(){
-    return fetch('http://localhost:5000/users')
+    return fetch('http://localhost:3100/users')
     .then(response => {
         return response.json()
     }).then(data => {
@@ -94,7 +94,7 @@ export function fetchAllUsers(){
 
 
 export function addRecomendation (recomendation){
-    return fetch('http://localhost:5000/event/addRecomendation',{
+    return fetch('http://localhost:3100/event/addRecomendation',{
         method: 'POST', 
         headers: {
             "Content-Type": "application/json",
@@ -109,8 +109,34 @@ export function addRecomendation (recomendation){
     })
 }
 
+export function sendInvitation(invitation){
+    return fetch('http://localhost:3100/invitation', {
+        method: 'POST', 
+        headers: {
+            "Content-Type": "application/json",
+            authorization: localStorage.getItem('token')
+        }, 
+        body: JSON.stringify(invitation)
+    }).then(response => {
+        return response.json()
+    }).then(data => {
+        return data
+    })
+}
+
+
+
 export function getUserById(){
-    return fetch('http://localhost:5000/user/getbyId',  {headers:{authorization: localStorage.getItem('token')}})
+    return fetch('http://localhost:3100/user/getbyId',  {headers:{authorization: localStorage.getItem('token')}})
+    .then(response => {
+        return response.json()
+    }).then(data => {
+        return data
+    })
+}
+
+export function getInvitationsbyId(){
+    return fetch('http://localhost:3100/invitation', {headers:{authorization: localStorage.getItem('token')}})
     .then(response => {
         return response.json()
     }).then(data => {
@@ -119,7 +145,7 @@ export function getUserById(){
 }
 
 export function votesByUserId(){
-    return fetch('http://localhost:5000/event/votes/userId',  {headers:{authorization: localStorage.getItem('token')}})
+    return fetch('http://localhost:3100/event/votes/userId',  {headers:{authorization: localStorage.getItem('token')}})
     .then(response => {
         return response.json()
     }).then(data => {
@@ -128,7 +154,7 @@ export function votesByUserId(){
 }
 
 export function addVoteToRecomendation(voteToRec){
-    return fetch('http://localhost:5000/addvote/recomendation',{
+    return fetch('http://localhost:3100/addvote/recomendation',{
         method: 'PUT', 
         body: JSON.stringify(voteToRec)
     }
@@ -136,5 +162,31 @@ export function addVoteToRecomendation(voteToRec){
         return response.json()
     }).then(data => {
        return data
+    })
+}
+
+export function deleteInvitation(id){
+    return fetch('http://localhost:3100/invitation', {
+        method: 'DELETE', 
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(id)
+    }).then(response => {
+        return response.json()
+    }).then(data => {
+        return data
+    })
+}
+
+export function acceptInvitation(id){
+    return fetch('http://localhost:3100/invitation', {
+        method: 'PATCH', 
+        headers: {"Content-Type": "application/json", 
+        authorization: localStorage.getItem('token')
+    },
+        body: JSON.stringify(id)
+    }).then(response => {
+        return response.json()
+    }).then(data => {
+        return data
     })
 }

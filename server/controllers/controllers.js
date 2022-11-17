@@ -1,6 +1,7 @@
 const User = require('../Schema/User');
 const Event = require('../Schema/Events');
 const Recomendation = require('../Schema/Recomendations')
+const Invitation = require("../Schema/Invitation")
 const Vote = require('../Schema/Votes')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
@@ -89,17 +90,41 @@ async function getEventbyUserIdOfGuest(req, res){
     }
 }
 
+async function getInvitationsbyId(req, res){
+  try {
+    const invitations = await Invitation.find({invitee: {$all : [req.user._id]}}).populate('owner');
+      res.status(200)
+      res.send(invitations)
+       }catch(err){
+        res.sendStatus(500)
+      }
+}
+
 async function addEvent(req, res){
   try{
       const event = {
       "owner": req.user._id,
       "date": req.body.date, 
-      "guests": req.body.guests
+      "guests": req.body.guests,
+      "ename": req.body.ename
       }
       const newEvent =  await Event.create(event)
        res.send(newEvent)
   } catch(error){
       res.sendStatus(500)
+  }
+}
+
+async function sendInvitation(req, res){
+  try{
+    const data = {
+      "owner": req.user._id,
+      "invitee": req.body.invitee
+    }
+    const newInvitation = await Invitation.create(data)
+    res.send(newInvitation)
+  } catch(error){
+    res.sendStatus(500)
   }
 }
 
@@ -157,6 +182,8 @@ async function addVote(req, res){
   }
 }
 
+
+
   
   async function getVotesbyUserId(req, res){
     try{
@@ -182,8 +209,33 @@ async function addVote(req, res){
   }
 }
 
+async function deleteInvitation(req, res){
+  try{
+    const invitation = await Invitation.deleteOne(
+      {_id: req.body.id},
+      {}
+      )
+    res.send(invitation)
+  }catch{
+    res.sendStatus(500)
+  }
+} 
+
+async function acceptInvitation(req, res){
+  try{
+    const addFriend = await User.findOneAndUpdate(
+      {_id: req.user._id}, 
+      {$push: {friends: req.body.id}}
+      )
+      res.status(200)
+  }catch{
+    res.status(500)
+  }
+}
+
 
 module.exports =  {
 addUser, getAllUsers, getAllEvents, addEvent, getUser, getEvent, getEventbyUserIdOfGuest, 
-addRecomendation, getRecomendationsbyEventId, addVote, getVotesbyUserId, login, me, addVotetoRec
-};
+addRecomendation, getRecomendationsbyEventId, addVote, getVotesbyUserId, login, me, addVotetoRec, sendInvitation,
+getInvitationsbyId, deleteInvitation, acceptInvitation
+}

@@ -10,6 +10,7 @@ function EventForm(props) {
   const [date, setDate] = useState('')
   const [guests, setGuest] = useState([]);
   const [guestInvited, setGuestInvited] = useState([])
+  const [eventName, setEventName] = useState('');
 
 
   function toggle(e){
@@ -26,10 +27,11 @@ function EventForm(props) {
    const handleClick = async (e) => {
     e.preventDefault()
     setDate(e.target.dateForm.value)  
-
+      console.log(eventName)
     const event = {
       "date": date,
-      "guests": guestInvited
+      "guests": guestInvited, 
+      "ename": eventName
     }
     await newEvent(event)
     await e.target.reset() 
@@ -47,6 +49,7 @@ function EventForm(props) {
     getUsers()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
+
 
   return (
     <Card style={{
@@ -68,9 +71,11 @@ function EventForm(props) {
         })
       }
         <input  onChange={(e) => setDate(e.target.value)}  type='date' name='dateForm' autoComplete='off' min={new Date().toISOString().split('T')[0] } >
-
+        
         </input>
+        <input type="text" name="eventName" placeholder="Event Name"  onChange={(e) => setEventName(e.target.value) }></input> 
         <Button type='submit'> Send </Button>
+
     </form>
     </div>
     </Card>
