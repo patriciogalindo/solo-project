@@ -1,8 +1,9 @@
 import {  useState } from "react"
 import React from 'react'
 import {loginClient} from '../services/services'
-
-
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import './loginRegister.css'
 
 
 function Login() {
@@ -18,16 +19,35 @@ function Login() {
         }        
         const data = await loginClient(combo)
         localStorage.setItem('token', data.token)
+        window.location.reload()
     }
 
   return (
-    <div>
-        <form onSubmit={handleClick}>
-            <input type="text" name="username" placeholder="username"  onChange={(e) => setUsername(e.target.value) }></input> 
-            <input type="text" name="password" placeholder="password" onChange={(e) => setPassword(e.target.value) }></input>
-            <button type='submit'> Login </button>
+        <form onSubmit={handleClick} className="login-register-div">
+          <div className="username-password">
+           <TextField
+            id="outlined-basic"
+             label="Username"
+              variant="outlined"
+              type="text" name="username"
+              placeholder="username"
+              onChange={(e) => setUsername(e.target.value) } 
+                 />
+                 </div>
+
+              <div className="username-password">
+             <TextField
+                id="outlined-basic"
+                label="Password"
+                variant="outlined"
+                type="text"
+                name="password"
+                placeholder="password"
+                onChange={(e) => setPassword(e.target.value) }
+             />
+             </div>
+            <Button id='login-btn' type='submit' variant="outlined"> Login </Button>
         </form>
-    </div>
   )
 }
 

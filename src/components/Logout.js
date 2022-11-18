@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 function Logout() {
     const logoutButton = () => {
         localStorage.clear()
+        window.location.reload()
     }
 
 

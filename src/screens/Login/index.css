@@ -1,0 +1,29 @@
+.loginPage{
+position: fixed;
+top: 20%;
+left: 50%;
+display: flex;
+flex-direction: column;
+margin: auto;
+margin-left: -200px;
+}
+
+.logo{
+    width: 500px;
+    height: 500px;
+}
+
+.register{
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+.login{
+    margin-bottom: 40px;
+    display: flex;
+}
+
+.are-you-registered{
+    cursor: pointer;
+}

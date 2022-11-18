@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import {registerClient} from '../services/services'
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
 function Register() {
     const [password, setPassword] = useState('');
@@ -16,11 +18,31 @@ function Register() {
     } 
 
   return (
-    <form onSubmit={handleClick}>
-    <input type="text" name="username"  placeholder="username"  onChange={(e) => setUsername(e.target.value) }></input> 
-    <input type="text" name="password"  placeholder="password"  onChange={(e) => setPassword(e.target.value) }></input>
-    <button type='submit'> Register </button>
-</form>
+    <form onSubmit={handleClick} className="login-register-div">
+        <div className='username-password'>
+       <TextField
+            id="outlined-basic"
+             label="Username"
+              variant="outlined"
+              type="text" name="username"
+              placeholder="username"
+              onChange={(e) => setUsername(e.target.value) } 
+                 />
+                 </div>
+
+                <div className='username-password'>
+             <TextField
+                id="outlined-basic"
+                label="Password"
+                variant="outlined"
+                type="text"
+                name="password"
+                placeholder="password"
+                onChange={(e) => setPassword(e.target.value) }
+             />
+             </div>
+            <Button id='login-btn' type='submit' variant="outlined"> Register </Button>
+        </form>
   )
 }
 

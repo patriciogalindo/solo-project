@@ -1,8 +1,8 @@
 import Card from '@mui/material/Card';
 import React, { useEffect, useState, useContext } from 'react'
-import { fetchAllUsers, getInvitationsbyId, deleteInvitation, acceptInvitation } from '../services/services';
+import { fetchAllUsers, getInvitationsbyId, deleteInvitation, acceptInvitation } from '../../services/services';
 import { Button } from '@mui/material';
-import { mainContext } from '../helper/Context';
+import { mainContext } from '../../helper/Context';
 
 function AddFriend(props){
     const [users, setUsers] = useState([]);

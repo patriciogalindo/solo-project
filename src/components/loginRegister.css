@@ -1,0 +1,13 @@
+.login-register-div{
+    display: flex;
+    flex-direction: column;
+}
+
+.username-password{
+    margin-bottom: 20px;
+    margin-left: 150px;
+}
+
+#login-btn{
+    margin-left: 150px;
+}

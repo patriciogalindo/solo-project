@@ -1,7 +1,3 @@
-*{
-  margin: 0;
-  padding: 0;
-}
 
 .main-container{
   width: 100%;
@@ -20,7 +16,7 @@
 #secondaryContainer{
   width: 100%;  
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .logout-btn{
@@ -34,31 +30,20 @@
 #eventListContainer{
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 50%;
   height: 100vh;
   align-items: center;
+  justify-content: center;
   margin-top: 10px;
 }
 
 #eventFormContainer{
   display: flex;
   flex-direction: column;
-  width: 30%;
+  width: 50%;
   height: 100vh;
   align-items: center;
 }
 
-.loginPage{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
 
-.login{
-  margin-bottom: 10px;
-}
 
-.register{
-  margin-left: 15px;
-}

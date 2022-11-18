@@ -4,11 +4,9 @@ import { fetchAllEvents, getUserById } from './services/services';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import EventForm from './components/EventForm';
-import Login from './components/Login';
-import Register from './components/Register';
-import Logout from './components/Logout';
-import {mainContext} from './helper/Context'
-import AddFriend from './components/AddFriend';
+import {mainContext} from './helper/Context';
+import ScreenLogin from './screens/Login/index';
+import NavBar from "./components/navBar/NavBar"
 
 
 function App() {
@@ -33,25 +31,21 @@ function App() {
    getAllEvents()
   },[])
 
+
+
   return (
  
     <mainContext.Provider  value={{userContext, setUserContext}}>
-    <div className='main-container'>
-
-    {localStorage.length === 0 &&
-      <div className='loginPage'>    
-        <div className='login'>
-      <Login/>
-      </div>
-      <div className='register'>
-       <Register/>
-       </div>
-       </div> 
-      
-    }
    
+    {localStorage.length === 0 && <ScreenLogin/>}
+      
       {localStorage.length > 0 && 
-      <div id = 'secondaryContainer'>           
+      <>     
+        <NavBar/>
+
+
+
+       <div id = 'secondaryContainer'>           
         <div id = 'eventListContainer'>
           
           <EventList events={loadedEvents}/>
@@ -60,18 +54,13 @@ function App() {
           <EventForm
           getAllEvents = {getAllEvents}
           />
-        </div>
 
-        <div className='logout-btn'>   
-          <Logout/>
         </div>
     </div>
+    </>
 
       }
 
-      <AddFriend/>
-    
-    </div>
     </mainContext.Provider>
   );
 
