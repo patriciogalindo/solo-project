@@ -27,7 +27,6 @@ function EventForm(props) {
    const handleClick = async (e) => {
     e.preventDefault()
     setDate(e.target.dateForm.value)  
-      console.log(eventName)
     const event = {
       "date": date,
       "guests": guestInvited, 
@@ -45,6 +44,8 @@ function EventForm(props) {
     return guests
   }
 
+  
+
   useEffect(() => {
     getUsers()
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -53,8 +54,8 @@ function EventForm(props) {
 
   return (
     <Card style={{
-      height:300,
-      width: 300
+      height:600,
+      width: 600
     }}>
     <div className='event-form-container'>
       <h1 id='h1-form'> Add new Event</h1> 

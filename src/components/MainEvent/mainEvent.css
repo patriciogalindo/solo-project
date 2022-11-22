@@ -1,0 +1,28 @@
+.main-username{
+    display: flex;
+    font-weight: bold;
+  }
+  
+  .main-ename{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .next{
+    display: flex;
+  }
+
+  .info-container{
+    margin-left: 10px;
+
+  }
+
+  .main-date{
+    display: flex;
+    margin-right: 10px;
+  }
+
+  .next-date{
+    display: flex;
+    justify-content: space-between;
+  }

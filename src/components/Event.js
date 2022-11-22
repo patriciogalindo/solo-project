@@ -3,24 +3,28 @@ import {fetchRecomendations, addVote, votesByUserId} from '../services/services'
 import './Event.css'
 import moment from "moment";
 import SuggestionForm from './SuggestionForm';
-import { mainContext } from '../helper/Context'
+import { mainContext, eventContext, navContext } from '../helper/Context'
 import Card from '@mui/material/Card';
 import { Paper } from '@mui/material';
 import { Button } from '@mui/material';
-
+import { shadows } from '@mui/system';
 
 
 function Event(props) {
   const [loadedRecomendations, setLoadedRecomendations] = useState([])
   const [loadedVotes, setLoadedVotes] = useState([])
   const {userContext} = useContext(mainContext)
-
+  const {selectedEventContext, setSelectedEventContext} = useContext(eventContext)
+  const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
 
   const getRecomendations = async () => {
     const recomendations = await fetchRecomendations(props.eventId)
     setLoadedRecomendations(recomendations)
-
   }
+
+
+  
+
 
   useEffect(() => {
     getRecomendations()
@@ -51,6 +55,11 @@ const handleClick = async (e) => {
    return bool       
   }
 
+  function handleClickSelect(){
+    setSelectedEventContext(props)
+    setSelectedNavContext("")
+  }
+
 
   return (
     <Card sx={{
@@ -59,69 +68,36 @@ const handleClick = async (e) => {
       marginLeft:20,
       display: 'flex',
       justifyContent: 'space-between',
-      width:800
+      width:800,
+      boxShadow: 2
       }} >
-      <div className='content-container'>
+      <div className='content-container' onClick={handleClickSelect}>
+        <p className="content">   {props.ename}</p>
+        <p className="content"> Invited by {props.owner.username}</p>
+        <p className="content"> {moment(props.date).format("MMM Do YY")} </p>
 
-      <Paper style={{
-        width:200, 
-        height:30,
-        backgroundColor: "blue",
-        color: 'white', 
-        fontWeight:'bold'
-      
-      }} className="content"> Event Name: {props.ename}</Paper>
-
-    <Paper style={{
-        width:200, 
-        height:30,
-        backgroundColor: "blue",
-        color: 'white', 
-        fontWeight:'bold'
-      
-      }} className="content"> Created by: {props.owner.username}</Paper>
-
-
-    <Paper style={{
-        width:200, 
-        height:30,
-        backgroundColor: "orange",
-        color: 'white', 
-        fontWeight:'bold',
-      }} className="content"> Date: {moment(props.date).format("MMM Do YY")} </Paper>
 
       
 
     
     <div className = 'guestsContainer'>
-      {props.guest.map(guest=> {
-      return <Paper style={{
-        width:200, 
-        height:30,
-        backgroundColor: "pink",
-        color: 'black', 
-        fontWeight:'bold',
-      }}  className="content" key={guest._id}> Guest: {guest.username} </Paper>
+      {props.guests.map(guest=> {
+      return <p className="content" key={guest._id}> Guest: {guest.username} </p>
       })}
 
       </div>
       
     </div>
 
+        <div className='rank-sug-container'>
 <div className='ranking-container'>
 {loadedRecomendations.map((rec, index) => {
-  return <div>
-    <Paper elevation={2}  style=
-    {{height:30, 
-      padding:5,
-      marginTop:2,
-      backgroundColor: index === 0 ? "lightgreen" : "transparent",
-      color: index === 0 ? "blue" : "black"
-    }}  className='ranking-list'>
+  return <div className='venue' >
     <div className='venue'> Venue: {rec.venue}</div>
     <div className='votes'> Votes: {rec.votes}</div>
 
     {checkVotes(rec.event) === false && 
+    <div className='vote-btn'>
        <Button
         style={{
           color: index === 0 ? "blue" : "lightblue"
@@ -129,7 +105,12 @@ const handleClick = async (e) => {
        data-event-id={rec.event} data-recomendation-id={rec._id}  onClick={handleClick}> 
        Vote
    </Button>
-    }</Paper>
+   </div>
+    }
+    
+    {/* </Paper> */}
+
+
     </div>
 })}
 </div>      
@@ -141,6 +122,8 @@ const handleClick = async (e) => {
     getRecomendations= {getRecomendations}
     /> 
     } 
+    </div>
+
     </div>
     </Card>
   )

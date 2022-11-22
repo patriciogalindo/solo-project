@@ -19,6 +19,7 @@ width:40%;
     flex-direction: column;
     margin-bottom: 10px;
     margin-left:2px;
+    font-weight: bold;
 }
 
 .guestsContainer{
@@ -33,7 +34,7 @@ justify-content: space-between;
 margin-bottom: 10px;
 margin-right: 10px;
 margin-top:10px;
-width: 60%;
+width: 100%;
 }
 
 .ranking-list{
@@ -42,3 +43,36 @@ width: 60%;
     justify-content: space-evenly;
     width:70%
 }
+
+.suggestion-form{
+    display: flex;
+    justify-content: end;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.rank-sug-container{
+    justify-content: space-between;
+    align-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    display: flex;
+}
+.venue{
+    width: 100%;
+    display: flex;
+}
+
+.votes{
+    display: flex;
+    width: 30%;
+}
+
+.vote-btn{
+    display: flex;
+    align-self: baseline;
+    justify-content: baseline;
+}
+

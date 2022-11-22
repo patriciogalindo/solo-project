@@ -21,6 +21,7 @@ display: flex;
 
 #request-icon{
     height: 70px;
+    cursor: pointer;
 }
 
 .add-event{
@@ -30,10 +31,12 @@ display: flex;
 
 #request-received-icon{
     height: 70px;
+    cursor: pointer;
 }
 
 #add-event-icon{
     height: 70px;
+    cursor: pointer;
 }
 
 .circle{

@@ -1,0 +1,17 @@
+.addfriend-container{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    height: 100%;
+}
+
+.add-friend{
+    display: flex;
+    flex-direction: row;
+}
+
+.manage-request{
+    display: flex;
+    justify-content: flex-start;
+}
+

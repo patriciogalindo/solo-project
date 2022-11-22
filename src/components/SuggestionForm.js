@@ -24,11 +24,11 @@ function SuggestionForm(props) {
     
   return (
 
-    <Paper elevation={2}  style=
-    {{height:50, 
-      padding:5,
-      marginTop:2
-    }}  className='suggestion-form'>
+    // <Paper elevation={2}  style=
+    // {{height:50, 
+    //   padding:5,
+    //   marginTop:2
+    // }}  className='suggestion-form'>
 
 
     <form onSubmit={handleClick}>
@@ -39,7 +39,7 @@ function SuggestionForm(props) {
     <Button type='submit'>Send</Button>
 </form>
 
-    </Paper>
+    // </Paper>
   )
 }
 
