@@ -5,10 +5,8 @@ import moment from "moment";
 import SuggestionForm from './SuggestionForm';
 import { mainContext, eventContext, navContext } from '../helper/Context'
 import Card from '@mui/material/Card';
-import { Paper } from '@mui/material';
 import { Button } from '@mui/material';
-import { shadows } from '@mui/system';
-
+import {useNavigate} from "react-router-dom"
 
 function Event(props) {
   const [loadedRecomendations, setLoadedRecomendations] = useState([])
@@ -16,14 +14,13 @@ function Event(props) {
   const {userContext} = useContext(mainContext)
   const {selectedEventContext, setSelectedEventContext} = useContext(eventContext)
   const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
+  const navigate = useNavigate();
 
   const getRecomendations = async () => {
     const recomendations = await fetchRecomendations(props.eventId)
     setLoadedRecomendations(recomendations)
   }
 
-
-  
 
 
   useEffect(() => {
@@ -55,27 +52,30 @@ const handleClick = async (e) => {
    return bool       
   }
 
-  function handleClickSelect(){
+  function handleClickSelect(e){
     setSelectedEventContext(props)
     setSelectedNavContext("")
+    navigate(`/event/${e}`)
   }
 
 
   return (
+    <>
+  
     <Card sx={{
-      minWidth: 500, 
       marginBottom: 10,
       marginLeft:20,
       display: 'flex',
       justifyContent: 'space-between',
-      width:800,
+      width:'100%',
+      height:'30%',
       boxShadow: 2
       }} >
-      <div className='content-container' onClick={handleClickSelect}>
+      <div className='content-container' onClick={() =>  handleClickSelect(props.eventId)}>
         <p className="content">   {props.ename}</p>
         <p className="content"> Invited by {props.owner.username}</p>
         <p className="content"> {moment(props.date).format("MMM Do YY")} </p>
-
+        
 
       
 
@@ -89,10 +89,10 @@ const handleClick = async (e) => {
       
     </div>
 
-        <div className='rank-sug-container'>
+        <div className='rank-sug-container' onClick={() =>  handleClickSelect(props.eventId)}>
 <div className='ranking-container'>
 {loadedRecomendations.map((rec, index) => {
-  return <div className='venue' >
+  return <div className='venue'  key={rec._id}>
     <div className='venue'> Venue: {rec.venue}</div>
     <div className='votes'> Votes: {rec.votes}</div>
 
@@ -107,10 +107,6 @@ const handleClick = async (e) => {
    </Button>
    </div>
     }
-    
-    {/* </Paper> */}
-
-
     </div>
 })}
 </div>      
@@ -126,6 +122,8 @@ const handleClick = async (e) => {
 
     </div>
     </Card>
+     </>
+
   )
 }
 

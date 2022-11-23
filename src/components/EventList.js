@@ -1,6 +1,6 @@
 import React from 'react'
 import Event from './Event'
-import EventPreview from './EventPreview/EventPreview'
+import './EventList.css'
 
 function EventList(props) {
     const info = props.events

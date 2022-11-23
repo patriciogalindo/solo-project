@@ -8,6 +8,15 @@ export function fetchAllEvents(){
     })
 }
 
+export function getEventById(id){
+    return fetch(`http://localhost:3100/event/${id}`)
+    .then(response => {
+        return response.json()
+    }).then(data => {
+        return data
+    })
+}
+
 export function fetchRecomendations(id){
     return fetch(`http://localhost:3100/event/recomendations/${id}`)
     .then(response => {

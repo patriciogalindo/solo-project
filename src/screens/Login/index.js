@@ -17,8 +17,6 @@ function ScreenLogin(){
 
   }, [login] )
 
-  console.log(login)
-
   return (
       <div className='loginPage'> 
        <Card sx={{
