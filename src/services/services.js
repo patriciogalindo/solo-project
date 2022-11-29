@@ -199,3 +199,12 @@ export function acceptInvitation(id){
         return data
     })
 }
+
+export function getVotesByEventId(id){
+    return fetch(`http://localhost:3100/vote/${id}`)
+    .then(response => {
+        return response.json()
+    }).then(data => {
+        return data
+    })
+}

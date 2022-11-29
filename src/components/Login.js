@@ -18,7 +18,7 @@ function Login() {
             "password": password
         }        
         const data = await loginClient(combo)
-        localStorage.setItem('token', data.token)
+        if(data) localStorage.setItem('token', data.token)
         window.location.reload()
     }
 

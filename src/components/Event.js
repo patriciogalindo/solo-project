@@ -7,6 +7,7 @@ import { mainContext, eventContext, navContext } from '../helper/Context'
 import Card from '@mui/material/Card';
 import { Button } from '@mui/material';
 import {useNavigate} from "react-router-dom"
+import eventImage from "../images/eventImage1.jpg"
 
 function Event(props) {
   const [loadedRecomendations, setLoadedRecomendations] = useState([])
@@ -21,7 +22,7 @@ function Event(props) {
     setLoadedRecomendations(recomendations)
   }
 
-
+  console.log(loadedRecomendations)
 
   useEffect(() => {
     getRecomendations()
@@ -58,73 +59,30 @@ const handleClick = async (e) => {
     navigate(`/event/${e}`)
   }
 
+  
 
   return (
     <>
   
     <Card sx={{
-      marginBottom: 10,
-      marginLeft:20,
-      display: 'flex',
-      justifyContent: 'space-between',
-      width:'100%',
-      height:'30%',
-      boxShadow: 2
+      marginBottom: 5,
+      marginLeft:10,
+      marginRight:10,
+      boxShadow: 2, 
+      width: "20%"
       }} >
       <div className='content-container' onClick={() =>  handleClickSelect(props.eventId)}>
-        <p className="content">   {props.ename}</p>
-        <p className="content"> Invited by {props.owner.username}</p>
-        <p className="content"> {moment(props.date).format("MMM Do YY")} </p>
-        
-
-      
-
-    
-    <div className = 'guestsContainer'>
-      {props.guests.map(guest=> {
-      return <p className="content" key={guest._id}> Guest: {guest.username} </p>
-      })}
-
+      <img alt='eventPicture' src={eventImage} />
+      <h2 className="date"> {moment(props.date).format("MMM Do YY")} </h2>
+        <h3 className="ename">   {props.ename}</h3>
+        <p className="owner"> Invited by {props.owner.username}</p>
+        <div className="guest-div">
+          <h2 id="attending">Attending {props.guests.length} people</h2>
       </div>
-      
-    </div>
-
-        <div className='rank-sug-container' onClick={() =>  handleClickSelect(props.eventId)}>
-<div className='ranking-container'>
-{loadedRecomendations.map((rec, index) => {
-  return <div className='venue'  key={rec._id}>
-    <div className='venue'> Venue: {rec.venue}</div>
-    <div className='votes'> Votes: {rec.votes}</div>
-
-    {checkVotes(rec.event) === false && 
-    <div className='vote-btn'>
-       <Button
-        style={{
-          color: index === 0 ? "blue" : "lightblue"
-        }}
-       data-event-id={rec.event} data-recomendation-id={rec._id}  onClick={handleClick}> 
-       Vote
-   </Button>
-   </div>
-    }
-    </div>
-})}
-</div>      
-
-      <div className='suggestion-form'>
-{loadedRecomendations.some(e => e.owner === userContext._id) === false && 
-    <SuggestionForm 
-    eventIdprop = {props.eventId}
-    getRecomendations= {getRecomendations}
-    /> 
-    } 
-    </div>
-
     </div>
     </Card>
      </>
-
-  )
+       )
 }
 
 export default Event

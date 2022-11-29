@@ -1,78 +1,46 @@
-.event-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 20%;
-    border: solid 1px black;
-    border-radius: 4px;
-}
 .content-container{
 display: flex;
 flex-direction: column;
-margin-left: 10px;
-width:40%;
+width:100%;
 }
 
-.content{
+.date{
     display: flex;
-    margin-top: 10px;
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.ename{
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+}
+
+.owner{
+    margin-left: 15px;
+    font-size: 1.3em;
+    margin-bottom: 0;
+}
+
+.guest-div{
+    display: flex;
     flex-direction: column;
+    width: 100%;
+    align-items: baseline;
     margin-bottom: 10px;
-    margin-left:2px;
-    font-weight: bold;
 }
 
-.guestsContainer{
-    display: flex;
-    flex-direction: column;
-}
-
-.ranking-container{
-display: flex;
-flex-direction: column;
-justify-content: space-between;
-margin-bottom: 10px;
-margin-right: 10px;
-margin-top:10px;
-width: 100%;
-}
-
-.ranking-list{
+.ind-guest{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    width:70%
+    margin-top: 0;
+    margin-left: 10px;
+    flex-wrap: wrap;
+
 }
 
-.suggestion-form{
-    display: flex;
-    justify-content: end;
-    align-items: flex-start;
-    flex-direction: column;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
+#attending{
+    margin-bottom: 0;
+    margin-left: 15px;
 
-.rank-sug-container{
-    justify-content: space-between;
-    align-content: space-between;
-    flex-direction: column;
-    width: 100%;
-    display: flex;
 }
-.venue{
-    width: 100%;
-    display: flex;
-}
-
-.votes{
-    display: flex;
-    width: 30%;
-}
-
-.vote-btn{
-    display: flex;
-    align-self: baseline;
-    justify-content: baseline;
-}
-

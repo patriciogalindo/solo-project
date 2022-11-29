@@ -20,6 +20,7 @@ router.get('/user/getbyId',authMiddleware, controller.getUser) //WORKS
 
 
 router.get('/event/:eventid', controller.getEvent)  //WORKS
+
 router.get('/eventU', authMiddleware, controller.getEventbyUserIdOfGuest) // WORKS
 
 
@@ -35,7 +36,7 @@ router.put('/addvote/recomendation', controller.addVotetoRec)
 // ------------------------------------here---------------------------
 
 router.get('/event/votes/userId', authMiddleware,  controller.getVotesbyUserId) 
-
+router.get('/vote/:id', controller.votesByEventId)
 
 router.post('/login', controller.login) 
 router.get('/login', authMiddleware,  controller.me)

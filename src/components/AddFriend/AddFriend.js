@@ -16,8 +16,6 @@ function AddFriend(props){
     const [selectedFriend, setSelectedFriend] = useState()
     const [selectedReq, setSelectedReq] = useState()
 
-    console.log(userContext)
-
     const getUsers = async () => {
       const users = await fetchAllUsers()
       setUsers(users)
@@ -104,7 +102,7 @@ function AddFriend(props){
 
 
 return (
-  <>
+  <div className='main-container'>
   <Card
   sx={{
     height: 600, 
@@ -169,7 +167,7 @@ return (
 
   </div>
   </Card>
-  </>
+  </div>
 )
 
 }

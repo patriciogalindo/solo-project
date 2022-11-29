@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { fetchAllUsers, newEvent } from '../services/services';
 import './EventForm.css'
 import { Button } from '@mui/material';
+import { CenterFocusStrong } from '@mui/icons-material';
 
 
 
@@ -53,9 +54,10 @@ function EventForm(props) {
 
 
   return (
+    <div className='main-container'>
     <Card style={{
       height:600,
-      width: 600
+      width: 600,
     }}>
     <div className='event-form-container'>
       <h1 id='h1-form'> Add new Event</h1> 
@@ -80,6 +82,7 @@ function EventForm(props) {
     </form>
     </div>
     </Card>
+    </div>
   )
 }
 

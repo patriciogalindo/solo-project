@@ -55,7 +55,7 @@ async function login(req, res){
     }, "secret")
     res.send({token: token})
   }catch(error){
-    res.status(500)
+     res.status(500)
   }
 }
 
@@ -130,7 +130,7 @@ async function sendInvitation(req, res){
 
 async function getEvent(req, res){
   try{
-      const event = await Event.findById(req.params.eventid);
+      const event = await Event.findById(req.params.eventid).populate('guests').populate('owner');
       res.status(200) 
       res.send(event)       
     } catch(err){
@@ -233,9 +233,20 @@ async function acceptInvitation(req, res){
   }
 }
 
+async function votesByEventId(req, res){
+  try{
+    const votes = await Vote.find({"event": req.params.id})
+    res.send(votes)
+    res.status(200)
+   }catch{
+    res.status(500)
+   }
+
+}
+
 
 module.exports =  {
 addUser, getAllUsers, getAllEvents, addEvent, getUser, getEvent, getEventbyUserIdOfGuest, 
 addRecomendation, getRecomendationsbyEventId, addVote, getVotesbyUserId, login, me, addVotetoRec, sendInvitation,
-getInvitationsbyId, deleteInvitation, acceptInvitation
+getInvitationsbyId, deleteInvitation, acceptInvitation, votesByEventId
 }

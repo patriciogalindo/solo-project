@@ -3,6 +3,8 @@ import { useState } from 'react';
 import {mainContext, eventContext, navContext} from './helper/Context';
 import Home from './pages/home/Home';
 import EventPage from './pages/event/EventPage'
+import EventForm from './components/EventForm'
+import AddFriend from './components/AddFriend/AddFriend'
 import {Route, Routes} from 'react-router-dom'
 import NavBar from './components/navBar/NavBar';
 
@@ -22,6 +24,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/event/:id' element={<EventPage/>} />
+        <Route path='/addEvent' element={<EventForm/>} />
+        <Route path='/friends' element={<AddFriend/>} />
       </Routes>
    
 

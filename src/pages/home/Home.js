@@ -12,8 +12,7 @@ function Home() {
   const [loadedEvents, setLoadedEvents] = useState([])
   const {userContext, setUserContext} = useContext(mainContext)
   const {selectedEventContext, setSelectedEventContext} = useContext(eventContext)
-  const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
-
+  const [userLoggedIn, setUserLoggedin] = useState(false) 
   const[recomendationsbyId, setRecomendationsbyiD] = useState([])
 
 
@@ -28,7 +27,11 @@ function Home() {
     const user = await getUserById()
     setUserContext(user)    
   }
-
+  
+  const loggedIn = async () => {
+    const loggedIn = localStorage.getItem('token')
+    if(loggedIn) setUserLoggedin(true)
+  }
 
 
   useEffect(() => {
@@ -39,18 +42,23 @@ function Home() {
    getAllEvents()
   },[])
 
+  useEffect(() => {
+    loggedIn()
+  },[])
 
+  console.log(loadedEvents)
 
 
   return (
 
     <>
 
-    {localStorage.length === 0 && <ScreenLogin/>}
+    {!userLoggedIn && <ScreenLogin/>}
 
-      {localStorage.length > 0 && 
+      {userLoggedIn && 
       <>     
-       <div id = 'secondaryContainer'>           
+       <div id = 'secondaryContainer'>         
+        <h1 className='my-events'> My events </h1>  
           <div id='eventListContainer'>
           <EventList events={loadedEvents}/>
           </div>

@@ -7,14 +7,17 @@ import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import Logout from "../Logout";
 import { navContext } from "../../helper/Context";
 import { getInvitationsbyId } from "../../services/services";
+import { useNavigate } from "react-router-dom";
+
 
 
 export default function NavBar(){
     const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
     const [requestNum, setRequestNum] = useState()
-    
+    const navigate = useNavigate()
+
     function handleClickReq(e){
-        setSelectedNavContext(e)
+        e === 'add-event' ? navigate('/addEvent') : navigate('/friends')
     }
 
     const getRequests= async () => {
@@ -26,10 +29,15 @@ export default function NavBar(){
         getRequests()
       },[])
 
+      function handleclickLogo(){
+        navigate('/')
+      }
+
+
 
     return(
         <div className="navBar">
-            <div className="logo1">
+            <div className="logo1" onClick={handleclickLogo}>
                 <img src={logo} alt="logo"/>
             </div>
 

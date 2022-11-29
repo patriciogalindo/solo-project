@@ -1,4 +1,153 @@
 .ename{
+    margin-bottom: 0;
+}
+
+.container{
+    display: flex;  
+    justify-self: center;
+    width: 50%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.imageEvent{
+    height: auto;
+    max-height: 40%;
+    display: block;
+    width: auto;
+    max-width: 100%;
+    object-fit: cover;
+}
+
+.header{
+    display: flex;
+    justify-self: center;
+    align-content: center;
+    margin: 0 auto;
+    width: 95%;
+    height: 10%;
+    flex-direction: column;
+    margin-top: 40px;
+
+}
+
+.invitedBy{
+    margin: 0;
+}
+
+.ename-date{
+    display: flex;
+    justify-content: space-between;
+
+    align-items: baseline;
+    margin-bottom: 0;
+    line-height: normal;
+    height: auto;
+    padding-bottom: 0;
+}
+
+.ename-invited{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 0;
+}
+
+.guests{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.guest{
+    font-size: 1.5em;
+    margin: 0;
+    display: flex;
+}
+
+.guest-div{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.attending{
+    margin-right: 30px;
+    margin-bottom: 0;
+    display: flex;
+}
+
+.secondary-container{
+    height: 100%;
+    display: flex;
+}
+
+.left{
+    width: 50%;
+    margin:0 auto;
+}
+
+.right{
+    width: 50%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.currentSuggestions{
+margin-bottom: 0;
+}
+
+.suggestion{
+    font-size: 1.5em;
+    display: flex;
+}
+
+
+
+.individual-suggestion-div{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.ranking{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.venue{
+    display: flex;
+    width: 50%;
+    font-size: 1.5em;
+    align-self: center;
+}
+
+.votes{
+    display: flex;
+    width: 10%;
+    font-size: 1.5em;
+    align-self: center;
+}
+
+.vote-btn{
+    display: flex;
+    width: 20%;
+    align-self: center;
+}
+
+.venue-vote-btn{
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+}
+
+.current-ranking{
+    margin-bottom: 0;
 }

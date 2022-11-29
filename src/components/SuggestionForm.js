@@ -23,23 +23,20 @@ function SuggestionForm(props) {
 
     
   return (
-
-    // <Paper elevation={2}  style=
-    // {{height:50, 
-    //   padding:5,
-    //   marginTop:2
-    // }}  className='suggestion-form'>
-
-
-    <form onSubmit={handleClick}>
+    // <div className='suggestion-form'>
+    <form onSubmit={handleClick} className="form-css">
+      <h1>Add a Suggestion</h1>
     <TextField 
-          label="Recommend something!"
+    sx={{
+      marginRight:2
+    }}
+    className='textfield'
+          label="Recommendation"
           id="outlined-size-small"
           size="small"  type="text" name="venue" onChange={(e) => setVenue(e.target.value) }></TextField> 
-    <Button type='submit'>Send</Button>
+    <Button variant='contained' type='submit'>Send</Button>
 </form>
-
-    // </Paper>
+// </div>
   )
 }
 
