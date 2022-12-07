@@ -4,6 +4,7 @@ const { Schema } = require('mongoose');
 const Event = new mongoose.Schema({
     date: Date,
     ename : String,
+    picture: Number,
     owner:{   
         type: Schema.Types.ObjectId,
         ref: "User"
@@ -13,6 +14,12 @@ const Event = new mongoose.Schema({
                 type: Schema.Types.ObjectId,
                 ref: "User"
             }
+    ], 
+    winner:[
+        {
+        type: Schema.Types.ObjectId,
+        ref: "Recomendation"
+        }
     ]
 })
 

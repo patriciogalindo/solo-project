@@ -3,7 +3,6 @@ import './Home.css';
 import { fetchAllEvents, getUserById } from '../../services/services';
 import { useContext, useState } from 'react';
 import { useEffect } from 'react';
-import NavBar from '../../components/navBar/NavBar';
 import {mainContext, eventContext, navContext} from '../../helper/Context';
 import ScreenLogin from '../../screens/Login';
 
@@ -46,8 +45,7 @@ function Home() {
     loggedIn()
   },[])
 
-  console.log(loadedEvents)
-
+ 
 
   return (
 

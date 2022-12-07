@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from "react";
 import './navBar.css'
-import logo from "../../images/Democratize-logos 2/logoblack.png"
+import logo from "../../images/Democratize-logos 2/logo.png"
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import PersonIcon from '@mui/icons-material/Person';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';

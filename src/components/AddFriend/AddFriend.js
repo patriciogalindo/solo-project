@@ -1,13 +1,18 @@
 import Card from '@mui/material/Card';
 import React, { useEffect, useState, useContext } from 'react'
-import { fetchAllUsers, getInvitationsbyId, deleteInvitation, acceptInvitation, sendInvitation } from '../../services/services';
-import { Button } from '@mui/material';
+import { fetchAllUsers, getInvitationsbyId, deleteInvitation, acceptInvitation, sendInvitation, getUserById } from '../../services/services';
+import { Button, TextField, Select, Input } from '@mui/material';
 import { mainContext } from '../../helper/Context';
-import { set } from 'mongoose';
+import './AddFriend.css'
+import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
+import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import { Close } from '@mui/icons-material';
+import e from 'cors';
 
 function AddFriend(props){
     const [users, setUsers] = useState([]);
     const {userContext} = useContext(mainContext);
+    const [user, setUser] = useState()
     const [filteredData, setFilteredData] = useState([]);
     const [word, setWord] = useState([]);
     const [invitations, setInvitations] = useState([])
@@ -15,6 +20,7 @@ function AddFriend(props){
     const [sendReq, setSendReq] = useState(false)
     const [selectedFriend, setSelectedFriend] = useState()
     const [selectedReq, setSelectedReq] = useState()
+    const [invUser, setInvUser] = useState()
 
     const getUsers = async () => {
       const users = await fetchAllUsers()
@@ -28,8 +34,14 @@ function AddFriend(props){
       return invitationArray
     }
 
+    const getUser = async () => {
+      const user = await getUserById()
+      setUser(user)    
+    }
+
     function filtered(){
-      const newA = users.filter(e => e.username.slice(0, (word.length)) === word && e.username !== userContext.username)
+      const nonfriends = users.filter(e => user.friends.some(a => a._id === e._id) === false)
+      const newA = nonfriends.filter(e => e.username.slice(0, (word.length)) === word && e.username !== user.username) 
       if(word.length > 0 ) {
         setFilteredData(newA)
       }else{
@@ -49,10 +61,14 @@ function AddFriend(props){
       }
       sendInvitation(invitation)
       setSendReq(false)
+      document.getElementById('input-search').value = ""
+      setWord('')
     }
 
     function dontSendRequestBtn(){
       setSendReq(false)
+      document.getElementById('input-search').value = ""
+      setWord('')
     }
 
     const  handleClickInvitation = async (e) => {
@@ -62,13 +78,13 @@ function AddFriend(props){
      }
 
 
-     const acceptReq = () => {
+     const acceptReq = (e) => {
       const invitation = {
-        id: selectedReq.owner._id
+        id: e.owner._id
       }
 
       const deleteInv = {
-        id: selectedReq._id
+        id: e._id
       }
       acceptInvitation(invitation)
       deleteInvitation(deleteInv)
@@ -77,15 +93,18 @@ function AddFriend(props){
      }
 
 
-     function rejectReq(){
+     function rejectReq(e){
       const deleteInv = {
-        id: selectedReq._id
+        id: e._id
       }
       deleteInvitation(deleteInv)
       setAcceptRejectReq(false)
       getInvitations()
      }
 
+     useEffect(() => {
+        getUser()
+     }, [])
     
     useEffect(() => {
         getUsers()
@@ -101,35 +120,40 @@ function AddFriend(props){
       }, [])
 
 
+
 return (
   <div className='main-container'>
   <Card
   sx={{
-    height: 600, 
-    width: 600,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center'
+    height: '45%', 
+    width: '30%',
+    padding: "0 1%",
+    display: 'flex'
   }}
   >
 
   <div className='addfriend-container'>
-    <h1>Friends</h1>
     <div className='add-friend'>
-      <h3> Add a Friend</h3>
+      <h2 className='add-friend-h2'> Add a Friend</h2>
     <div className='input-search'>
       <input
         type = "text"
+        variant='outlined'
+        id='input-search'
         placeholder="Search"
         onChange={(e) => setWord(e.target.value)}
         />
     </div>
 
-    <div>
+    {filteredData.length > 0 &&
+    <div className='dropdown-list-af'>
+       <select size="4"  className="dropdown" >
         {filteredData.map((e) =>{
-          return <p onClick={() =>  handleClickFiltered(e)} value= {e.username} name="invitation" key={e._id}> {e.username}  </p>
+          return <option id='dropdown-id' className='ind-friend' onClick={() =>  handleClickFiltered(e)} value= {e.username} name="invitation" key={e._id}> {e.username}  </option>
         })}
+        </select>
     </div>
+  }
 
     {sendReq === true && 
     <div>
@@ -146,18 +170,39 @@ return (
     <div className='manage-request'>
 
     <div>
-      <h3> Pending Invitations</h3>
+      <h2 className='pending'> Pending Invitations</h2>
     </div>
 
-    <div>
+    <div className='invitation-list'>
         {invitations.map((e) =>{
-          return <p onClick={() =>  handleClickInvitation(e)} name="invitation" key={e._id}> {e.owner.username}  </p>
+          return (
+          <div className='ind-invitation' >
+          <p onClick={() =>  handleClickInvitation(e)} 
+          name="invitation" key={e._id} className="ind-invitation-content"> {e.owner.username}  </p>
+          <div className='accept-reject'>
+            <CheckOutlinedIcon 
+            onClick= {() => acceptReq(e)}
+            sx={{ height: '50%', 
+            color: 'blue',
+            borderBottom: '1px solid',
+            cursor:'pointer'
+            
+          }}/>
+            <CloseOutlinedIcon 
+            onClick= {() => rejectReq(e)}
+            sx={{ height: '50%',
+            color: 'red',
+            cursor:'pointer'
+            }}/>
+          </div>
+          </div>
+          )
         })}
         {acceptRejectReq === true &&
         <>
         <p>Do you want to aceept the friend request of {selectedReq.owner.username}</p>
-        <Button onClick={acceptReq}  >Yes</Button>
-        <Button onClick={rejectReq}> No</Button>
+        <Button onClick={acceptReq} >Yes</Button>
+        <Button onClick={rejectReq} > No</Button>
         </>
         }
 

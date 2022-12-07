@@ -1,4 +1,5 @@
 
+const { Router } = require('express')
 const express = require('express')
 const router = express.Router()
 const controller = require('./controllers/controllers')
@@ -12,6 +13,7 @@ router.post('/invitation', authMiddleware, controller.sendInvitation)// WORKS
 router.get('/invitation', authMiddleware, controller.getInvitationsbyId)// WORKS
 router.delete('/invitation', controller.deleteInvitation)// WORKS
 router.patch('/invitation', authMiddleware, controller.acceptInvitation)
+router.patch('/addWinner', controller.addWinner)
 
 /////////
 

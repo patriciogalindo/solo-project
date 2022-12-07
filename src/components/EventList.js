@@ -14,6 +14,7 @@ function EventList(props) {
             owner={event.owner}
             guests={event.guests}
             ename={event.ename}
+            picture={event.picture}
             />
         })}
     </div>

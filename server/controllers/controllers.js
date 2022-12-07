@@ -18,7 +18,7 @@ async function getAllUsers(req, res){
 
 async function getUser(req, res){
   try{
-      const user = await User.findById(req.user._id);
+      const user = await User.findById(req.user._id).populate('friends');
       res.status(200) 
       res.send(user)       
     } catch(err){
@@ -106,7 +106,8 @@ async function addEvent(req, res){
       "owner": req.user._id,
       "date": req.body.date, 
       "guests": req.body.guests,
-      "ename": req.body.ename
+      "ename": req.body.ename,
+      "picture": req.body.picture
       }
       const newEvent =  await Event.create(event)
        res.send(newEvent)
@@ -227,6 +228,10 @@ async function acceptInvitation(req, res){
       {_id: req.user._id}, 
       {$push: {friends: req.body.id}}
       )
+    const addFriend2 = await User.findOneAndUpdate(
+      {_id: req.body.id}, 
+      {$push: {friends:req.user._id}}
+    )
       res.status(200)
   }catch{
     res.status(500)
@@ -241,12 +246,22 @@ async function votesByEventId(req, res){
    }catch{
     res.status(500)
    }
+}
 
+async function addWinner(req, res){
+  try{
+    const winner = await Event.findOneAndUpdate({_id: req.body.id}, 
+      {$push: {winner:req.body.winner}}
+      )
+      res.status(200)
+  }catch{
+    res.staus(500)
+  }
 }
 
 
 module.exports =  {
 addUser, getAllUsers, getAllEvents, addEvent, getUser, getEvent, getEventbyUserIdOfGuest, 
 addRecomendation, getRecomendationsbyEventId, addVote, getVotesbyUserId, login, me, addVotetoRec, sendInvitation,
-getInvitationsbyId, deleteInvitation, acceptInvitation, votesByEventId
+getInvitationsbyId, deleteInvitation, acceptInvitation, votesByEventId, addWinner
 }

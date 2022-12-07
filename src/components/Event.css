@@ -6,20 +6,39 @@ width:100%;
 
 .date{
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     margin-bottom: 0;
 }
+
+.date-div{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+
 
 .ename{
     display: flex;
-    justify-content: center;
-    margin-top: 0;
+    justify-content: flex-start;
+    margin-bottom: 0;
 }
 
 .owner{
-    margin-left: 15px;
     font-size: 1.3em;
     margin-bottom: 0;
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 0;
+}
+
+.ename-owner{
+    display: flex;
+    flex-direction: column;
+}
+
+.image{
+    height: 300px;
+    width: auto;
 }
 
 .guest-div{
@@ -33,14 +52,46 @@ width:100%;
 .ind-guest{
     display: flex;
     flex-direction: row;
-    margin-top: 0;
-    margin-left: 10px;
+    margin: 0;
     flex-wrap: wrap;
 
 }
 
 #attending{
     margin-bottom: 0;
-    margin-left: 15px;
+}
 
+.pending-activities{
+    display: flex;
+    flex-direction: row;
+}
+
+.pending-suggested2{
+    margin-right: 5px;
+    padding: .7%;
+    background-color: green;
+    color: white;
+    border-radius: 3px;
+}
+
+.pending-suggested{
+    margin-right: 5px;
+    padding: .7%;
+    background-color: red;
+    border-radius: 3px;
+}
+
+.pending-voted2{
+    margin-right: 5px;
+    padding: .7%;
+    background-color: green;
+    color: white;
+    border-radius: 3px;
+}
+
+.pending-voted{
+    margin-right: 5px;
+    padding: .7%;
+    background-color: red;
+    border-radius: 3px;
 }

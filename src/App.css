@@ -5,14 +5,15 @@
   margin-top: 40px;
   margin-left: 40px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
 }
 
 .container{
   display: flex;
   flex-direction: column;
 }
-
+/* 
 #secondaryContainer{
   width: 100%;  
   display: flex;
@@ -55,4 +56,4 @@
 .main-ename{
   display: flex;
   justify-content: center;
-}
+}   */

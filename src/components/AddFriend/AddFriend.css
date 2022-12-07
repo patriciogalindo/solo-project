@@ -1,17 +1,73 @@
 .addfriend-container{
     display: flex;
-    justify-content: center;
     align-content: center;
-    height: 100%;
+    width: 80%;
+    flex-direction: column;
+    margin: 0 auto;
 }
 
 .add-friend{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-content: flex-start;
+}
+
+.ind-friend{
+    width: 100%;
+}
+
+.friends-h1{
+    text-align: center;
 }
 
 .manage-request{
     display: flex;
     justify-content: flex-start;
+    flex-direction: column;
 }
 
+.dropdown{
+    width: 50%;
+    border-radius: 5px;
+}
+
+.input-search{
+    margin-bottom: 10px;
+}
+
+.ind-invitation{
+    border: 1px solid;
+    width: 120px;
+    display: flex;
+    flex-direction: row;
+    padding: .2%;
+    margin-right: 5px;
+}
+
+.pending{
+    padding: 2% 0;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.ind-invitation-content{
+    margin:0 auto;
+    align-self: center;
+    padding: 1.5%;
+}
+
+.accept-reject{
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid;
+    height: 100%;
+}
+
+.invitation-list{
+    display: flex;
+    flex-direction: row;
+}
+
+.add-friend-h2{
+    text-align: center;
+}

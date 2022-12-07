@@ -45,6 +45,7 @@ export function addVote (vote){
 
 
 export function newEvent(event){
+    console.log(event)
     return fetch('http://localhost:3100/events',{
         method:'POST', 
         headers: {
@@ -205,6 +206,19 @@ export function getVotesByEventId(id){
     .then(response => {
         return response.json()
     }).then(data => {
+        return data
+    })
+}
+
+export function addWinner(winner){
+    return fetch('http://localhost:3100/addWinner', {
+        method: 'PATCH', 
+        headers: {'Content-type': 'application/json', 
+    }, 
+    body: JSON.stringify(winner)
+    }).then(response => {
+        return response.json()
+    }).then(data=> {
         return data
     })
 }

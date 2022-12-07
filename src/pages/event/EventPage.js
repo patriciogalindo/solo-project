@@ -1,11 +1,19 @@
 import React, { useEffect, useState, useContext } from "react";
-import { fetchRecomendations, getEventById, getUserById, getVotesByEventId, addVote} from "../../services/services";
+import { fetchRecomendations, getEventById, getUserById, getVotesByEventId, addVote, addWinner} from "../../services/services";
 import './EventPage.css'
 import eventImage from '../../images/eventImage1.jpg';
 import moment from "moment";
 import SuggestionForm from '../../components/SuggestionForm'
 import {mainContext} from '../../helper/Context'
 import { Button } from "@mui/material";
+import bar from '../../images/bar.jpg'
+import club from '../../images/club.jpg'
+import event from '../../images/eventImage1.jpg'
+import hiking from '../../images/hiking.jpg'
+import office from '../../images/office.jpg'
+import outdoors from '../../images/outdoors.jpg'
+import park from '../../images/park.jpg'
+import restaurant from '../../images/restaurant2.jpg'
 
 
 function EventPage(){
@@ -14,7 +22,8 @@ function EventPage(){
     const {userContext, setUserContext} = useContext(mainContext)
     const [addedVote, setAddedVote] = useState(false)
     const [votes, setVotes] = useState()
-    const [winner, setWinner] = useState("")
+    const [winnerCtx, setWinnerCtx] = useState("")
+    const [pics] = useState([bar, club, event, hiking, office, outdoors, park, restaurant])
 
     /////Get event
     
@@ -26,14 +35,15 @@ function EventPage(){
         const getVotes = async() => {
         const a = await getVotesByEventId(window.location.pathname.split("/")[2])
         setVotes(a)
-        if(mainEvent && a.length === mainEvent.guests.length) await setWinner(a[0])
+        if(mainEvent._id && a.length === mainEvent.guests.length) {
+            setWinnerCtx(recomendations[0]._id)
+        }
     }
 
     const getuser = async () => {
         const user = await getUserById()
         setUserContext(user)    
       }
-      
 
     useEffect(() => {
         getEvent()
@@ -74,14 +84,28 @@ function EventPage(){
         }     
         await addVote(vote)
         getVotes()
+        
+        if(winnerCtx){
+        const winner = {
+            id: mainEvent._id,
+            winner: winnerCtx
+        }
+        await addWinner(winner)
+
+    }
+
         await setAddedVote(true)
     }
+
+    console.log(mainEvent)
+
+    ////////////////////////////////////////////
  
     return(
         <>
         {mainEvent._id && 
         <div className="container">
-        <img alt="eventImage" src={eventImage} className="imageEvent"/>
+        <img alt="eventImage" src={pics[mainEvent.picture]} className="imageEvent"/>
 
 
         <div className="header">
@@ -106,12 +130,12 @@ function EventPage(){
         </div>
         </div>
 
-        {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winner === "" &&
+        {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winnerCtx === "" &&
         <div className="ranking">
         <h1 className="current-ranking"> Current Ranking </h1>
-       {recomendations.map((e) => {
+       {recomendations.map((e, index) => {
         return (
-        <div className="venue-vote-btn">
+        <div key={index} className="venue-vote-btn">
         <div className="venue">{e.venue}</div>
         <div className="votes">{e.votes}</div>
         </div>
@@ -157,11 +181,11 @@ function EventPage(){
 
 
 
-        {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === false && winner === "" &&
+        {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === false && winnerCtx === "" &&
         <div className="ranking">
-       {recomendations.map((e) => {
+       {recomendations.map((e, index) => {
         return (
-        <div className="venue-vote-btn">
+        <div key={index} className="venue-vote-btn">
         <div className="venue">{e.venue}</div>
         <div className="votes">{e.votes}</div>
         <div className="vote-btn">
@@ -181,14 +205,14 @@ function EventPage(){
        </div>
         }
 
-        {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winner === "" &&
+        {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winnerCtx === "" &&
             <div className="top">
                 <h1>Currently winning</h1>
                 <h1>{recomendations[0].venue}</h1>
             </div>
         }
 
-            {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winner &&
+            {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winnerCtx &&
             <div className="top">
                 <h1>We have a winner</h1>
                 <h1>{recomendations[0].venue}</h1>
