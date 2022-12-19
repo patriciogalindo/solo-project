@@ -4,15 +4,8 @@ import { newEvent, getUserById } from '../services/services';
 import './EventForm.css'
 import { Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import bar from '../images/bar.jpg'
-import club from '../images/club.jpg'
-import event from '../images/eventImage1.jpg'
-import hiking from '../images/hiking.jpg'
-import office from '../images/office.jpg'
-import outdoors from '../images/outdoors.jpg'
-import park from '../images/park.jpg'
-import restaurant from '../images/restaurant2.jpg'
 import { useNavigate } from 'react-router-dom';
+import Axios from "axios"
 
 function EventForm(props) {
   const [date, setDate] = useState('')
@@ -21,8 +14,7 @@ function EventForm(props) {
   const [currUser, setCurrUser] = useState()
   const [word, setWord] = useState("")  
   const [filteredData, setFilteredData] = useState("")
-  const [picSelected, setPicSelected] = useState()
-  const [pics] = useState([bar, club, event, hiking, office, outdoors, park, restaurant])
+  const [pictureInput, setPictureInput] = useState()
   const navigate = useNavigate()
   
   const getUser = async () =>{
@@ -32,22 +24,35 @@ function EventForm(props) {
   }
 
 
+
+
   useEffect(() => {
     getUser()
   },[])
 
 
+
    const handleClick = async (e) => {
+    let responseUrl
+    e.preventDefault()
     const newArr = guestsInvited.map((e) => {
       return e.slice(-1)
     })
-    console.log(newArr)
-    const picture = picSelected
+    const formData = new FormData();
+    formData.append('file', pictureInput)
+    formData.append("upload_preset", "em2qqxhv")
+    await Axios.post(
+      "https://api.cloudinary.com/v1_1/djspbi0jk/image/upload", 
+      formData
+    ).then((response) => {
+      responseUrl = response.data.secure_url
+    })
+
     setDate(e.target.dateForm.value)  
     const event = {
       "date": date,
       "guests": newArr, 
-      "picture": picture,
+      "picture": responseUrl,
       "ename": eventName
     }
     await newEvent(event)
@@ -75,10 +80,6 @@ let newArr = guestsInvited.filter((i) => {
 setGuestsInvited(newArr)
 }
 
-function handleClickPhotos(e){
-  setPicSelected(e.target.id)
-
-}
 
 
 function handleChange(e){
@@ -96,7 +97,6 @@ function handleChange(e){
 
 
 
-  
 
 
 /////////////////////////////////////////////////////////////////////////
@@ -157,22 +157,28 @@ function handleChange(e){
         <input type="text" name="eventName" placeholder="Event Name"  className='name' onChange={(e) => setEventName(e.target.value) }></input> 
        
        
-       {!picSelected &&
+       {/* {!picSelected &&
        <>
-       <div className='choose'> <h3> Choose a picture</h3></div>
+       <div className='choose'> <h2> Choose a picture or </h2> <h2 onClick={addOwnPic}>&nbsp; Add a your own</h2></div>
         <div className='image-div' >
           {pics && pics.map((e, index) => {
              return <img className='ind-image' id={index} src={e} onClick={handleClickPhotos}/>
           })}
         </div>
         </>
-}
-        {picSelected &&
+} */}
+        {/* {picSelected &&
         <div className='selected-img-div' >
           <img className='ind-selected-img' src ={pics[picSelected]}/>
         </div>
+        } */}
 
-        }
+  
+          <div><input type="file" 
+          onChange={(e) => {
+            setPictureInput(e.target.files[0])
+          }}
+          /></div>
 
 
         

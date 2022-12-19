@@ -20,7 +20,6 @@ function Event(props) {
   const {userContext} = useContext(mainContext)
   const {selectedEventContext, setSelectedEventContext} = useContext(eventContext)
   const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
-  const [pics] = useState([bar, club, event, hiking, office, outdoors, park, restaurant])
   const navigate = useNavigate();
 
   const getRecomendations = async () => {
@@ -60,7 +59,7 @@ function Event(props) {
       marginBottom: "20px"
       }} >
       <div className='content-container' onClick={() =>  handleClickSelect(props.eventId)}>
-      <img className='image' alt='eventPicture' src={pics[props.picture]} />
+      <img className='image' alt='eventPicture' src={props.picture} />
       <div className='date-div'>
         <div className='ename-owner'>
       <h2 className="ename">   {props.ename}</h2>

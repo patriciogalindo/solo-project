@@ -14,6 +14,9 @@
 
 .ind-friend{
     width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1.2em;
 }
 
 .friends-h1{
@@ -70,4 +73,13 @@
 
 .add-friend-h2{
     text-align: center;
+}
+
+#input-search-id{
+    font-size: 1.4em;
+    border-radius: 5px;
+}
+
+p{
+    font-size: 1.3em;
 }

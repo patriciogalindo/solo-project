@@ -4,7 +4,7 @@ const { Schema } = require('mongoose');
 const Event = new mongoose.Schema({
     date: Date,
     ename : String,
-    picture: Number,
+    picture: String,
     owner:{   
         type: Schema.Types.ObjectId,
         ref: "User"

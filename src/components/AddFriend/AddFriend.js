@@ -1,7 +1,7 @@
 import Card from '@mui/material/Card';
 import React, { useEffect, useState, useContext } from 'react'
 import { fetchAllUsers, getInvitationsbyId, deleteInvitation, acceptInvitation, sendInvitation, getUserById } from '../../services/services';
-import { Button, TextField, Select, Input } from '@mui/material';
+import { Button, TextField, Select, ListItem } from '@mui/material';
 import { mainContext } from '../../helper/Context';
 import './AddFriend.css'
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
@@ -61,13 +61,13 @@ function AddFriend(props){
       }
       sendInvitation(invitation)
       setSendReq(false)
-      document.getElementById('input-search').value = ""
+      document.getElementById('input-search-id').value = ""
       setWord('')
     }
 
     function dontSendRequestBtn(){
       setSendReq(false)
-      document.getElementById('input-search').value = ""
+      document.getElementById('input-search-id').value = ""
       setWord('')
     }
 
@@ -134,12 +134,12 @@ return (
 
   <div className='addfriend-container'>
     <div className='add-friend'>
-      <h2 className='add-friend-h2'> Add a Friend</h2>
+      <h1 className='add-friend-h2'> Add a Friend</h1>
     <div className='input-search'>
       <input
         type = "text"
         variant='outlined'
-        id='input-search'
+        id='input-search-id'
         placeholder="Search"
         onChange={(e) => setWord(e.target.value)}
         />
@@ -158,8 +158,8 @@ return (
     {sendReq === true && 
     <div>
      <p> Do you want to send a friend request to {selectedFriend.username}?</p>
-     <Button onClick={sendRequestBtn}  >Yes</Button>
-     <Button onClick={dontSendRequestBtn}> No</Button>
+     <Button onClick={sendRequestBtn} sx={{fontSize:"1.2em"}} >Yes</Button>
+     <Button onClick={dontSendRequestBtn} sx={{fontSize:"1.2em"}}> No</Button>
     </div>
     }
 
@@ -170,7 +170,7 @@ return (
     <div className='manage-request'>
 
     <div>
-      <h2 className='pending'> Pending Invitations</h2>
+      <h1 className='pending'> Pending Invitations</h1>
     </div>
 
     <div className='invitation-list'>
@@ -201,7 +201,7 @@ return (
         {acceptRejectReq === true &&
         <>
         <p>Do you want to aceept the friend request of {selectedReq.owner.username}</p>
-        <Button onClick={acceptReq} >Yes</Button>
+        <Button onClick={acceptReq}  >Yes</Button>
         <Button onClick={rejectReq} > No</Button>
         </>
         }

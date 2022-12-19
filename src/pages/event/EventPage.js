@@ -6,14 +6,6 @@ import moment from "moment";
 import SuggestionForm from '../../components/SuggestionForm'
 import {mainContext} from '../../helper/Context'
 import { Button } from "@mui/material";
-import bar from '../../images/bar.jpg'
-import club from '../../images/club.jpg'
-import event from '../../images/eventImage1.jpg'
-import hiking from '../../images/hiking.jpg'
-import office from '../../images/office.jpg'
-import outdoors from '../../images/outdoors.jpg'
-import park from '../../images/park.jpg'
-import restaurant from '../../images/restaurant2.jpg'
 
 
 function EventPage(){
@@ -23,7 +15,6 @@ function EventPage(){
     const [addedVote, setAddedVote] = useState(false)
     const [votes, setVotes] = useState()
     const [winnerCtx, setWinnerCtx] = useState("")
-    const [pics] = useState([bar, club, event, hiking, office, outdoors, park, restaurant])
 
     /////Get event
     
@@ -97,7 +88,6 @@ function EventPage(){
         await setAddedVote(true)
     }
 
-    console.log(mainEvent)
 
     ////////////////////////////////////////////
  
@@ -105,7 +95,7 @@ function EventPage(){
         <>
         {mainEvent._id && 
         <div className="container">
-        <img alt="eventImage" src={pics[mainEvent.picture]} className="imageEvent"/>
+        <img alt="eventImage" src={mainEvent.picture} className="imageEvent"/>
 
 
         <div className="header">

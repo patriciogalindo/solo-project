@@ -9,6 +9,8 @@
 .friend-search{
     width: 50%;
     margin-bottom: 20px;
+    font-size: 1.3em;
+    border-radius: 5px;
 }
 
 .search-div{
@@ -51,10 +53,14 @@
 
 .date{
     margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 1.3em;
 }
 
 .name{
     margin-bottom: 20px;
+    font-size: 1.3em;
+    border-radius: 5px;
 }
 
 .ind-guest-container{
@@ -64,6 +70,7 @@
     margin-bottom: 20px;
     margin-right: 5px;
     padding: .2%;
+    border-radius: 5px;
 }
 
 .ind-guest{
@@ -118,5 +125,6 @@
 
 .dropdown{
     width: 50%;
+    font-size: 1.3em;
     border-radius: 5px;
 }
