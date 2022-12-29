@@ -23,7 +23,7 @@ function Login() {
     }
 
   return (
-        <form onSubmit={handleClick} className="login-register-div">
+        <form className="login-register-div">
           <div className="username-password">
            <TextField
             id="outlined-basic"
@@ -46,7 +46,7 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value) }
              />
              </div>
-            <Button id='login-btn' type='submit' variant="outlined"> Login </Button>
+            <Button id='login-btn' variant="outlined" onClick={handleClick}> Login </Button>
         </form>
   )
 }
