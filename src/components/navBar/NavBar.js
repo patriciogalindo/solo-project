@@ -37,48 +37,35 @@ export default function NavBar(){
 
     return(
         <div className="navBar">
+            <div className="internal-navbar-container">
             <div className="logo1" onClick={handleclickLogo}>
-                <img src={logo} alt="logo"/>
+                <img src={logo} alt="logo" className="logo-navbar"/>
             </div>
 
             <div className="icons">
                     <div className="request-received"
                     onClick={() => handleClickReq("request-received")}
                     >
+                        
+
+
+                <div className="person-box">
                 <PersonIcon
-                    id="request-received-icon"
-                    sx={{
-                    heigth: 150, 
-                    width: 100
-                    }}
+                className="request-received-icon"
                 />
                 <div className="box">
                 <span className="circle">{requestNum}</span>
                 </div>
                 </div>
-
-                <div className="add-event"
-                onClick={() => handleClickReq("add-event")}
-                >
-                <InsertInvitationIcon 
-                 id="add-event-icon"
-                sx={{
-                heigth: 150, 
-                width: 100
-                }}
-                />
                 </div>
 
                 <div className="logout">
                 <Logout
-                sx={{
-                    heigth: 150, 
-                    width: 100
-                }}
+                className="logout-btn"
                 />
                 </div>
             </div>
-            
+            </div>
         </div>
 
     )

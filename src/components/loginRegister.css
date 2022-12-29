@@ -1,14 +1,15 @@
 .login-register-div{
     display: flex;
     flex-direction: column;
+    width: fit-content;
+    justify-content: center;
+    align-content: center;
 }
 
 .username-password{
-    margin-bottom: 20px;
-    margin-left: 150px;
+    margin-bottom: 4px ;
 }
 
-#login-btn{
-    margin-left: 150px;
-}
+
+
 

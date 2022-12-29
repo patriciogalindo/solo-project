@@ -5,11 +5,25 @@
 .container{
     display: flex;  
     justify-self: center;
+    justify-content: center;
     width: 40%;
     height: 100%;
     margin: 0 auto;
     background-color: white;
 }
+@media (max-width: 820px) {
+    .container{
+        width: 70% !important;
+        height: auto;
+        padding-bottom: 3%;
+        display: flex;
+        justify-content: center;
+    }
+  }
+
+
+
+
 
 .imageEvent{
     height: auto;
@@ -39,13 +53,20 @@
 .ename-date{
     display: flex;
     justify-content: space-between;
-
     align-items: baseline;
     margin-bottom: 0;
     line-height: normal;
     height: auto;
     padding-bottom: 0;
 }
+
+@media (max-width: 820px) {
+    .ename-date{
+        width: 70% !important;
+        height: auto;
+        flex-direction: column;
+    }
+  }
 
 .ename-invited{
     display: flex;
@@ -55,7 +76,6 @@
 }
 
 .guests{
-    margin-top: 20px;
     display: flex;
     flex-direction: column;
     margin-left: 10px;
@@ -84,23 +104,88 @@
     display: flex;
 }
 
+@media (max-width: 820px) {
+    .secondary-container{
+        width: 100% !important;
+        height: auto;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+  }
+
+
+
+
 .left{
-    width: 50%;
-    margin:0 auto;
+    width: 100%;
 }
 
+@media (max-width: 820px) {
+    .left{
+        width: 100% !important;
+        height: auto;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+    }
+  }
+
+
 .right{
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
 }
+
+@media (max-width: 820px) {
+    .right{
+        width: 95% !important;
+        height: auto;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        margin: 0 auto;
+
+    }
+  }
 
 .currentSuggestions{
 margin-bottom: 0;
 }
+
+@media (max-width: 820px) {
+    .currentSuggestions{
+        width: 95% !important;
+        height: auto;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        margin: 0 auto;
+        font-size: 4vw;
+    }
+  }
+
+  @media (max-width: 820px) {
+    h1{
+        font-size: 4vw;
+    }
+  }
+
+  @media (max-width: 820px) {
+    h2{
+        font-size: 4vw;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .guest{
+        font-size: 4vw;
+    }
+  }
+
 
 .suggestion{
     font-size: 1.5em;
@@ -151,3 +236,20 @@ margin-bottom: 0;
 .current-ranking{
     margin-bottom: 0;
 }
+
+.date-eventpage{
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 1.3em;
+    width: 30%;
+    display: flex;
+    justify-self: flex-end;
+}
+
+@media (max-width: 800px) {
+    .date-eventpage{
+        width: auto;
+        font-size: 4vw;
+    }
+  }
+

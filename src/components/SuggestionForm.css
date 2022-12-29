@@ -2,6 +2,10 @@
     height: 50%;
     display: flex;
     width: 100%;
-    
 }
 
+@media (max-width: 800px) {
+    .textfield{
+        font-size: 1em;
+    }
+  }

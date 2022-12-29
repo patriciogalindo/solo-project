@@ -5,7 +5,8 @@ import { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import {mainContext, eventContext, navContext} from '../../helper/Context';
 import ScreenLogin from '../../screens/Login';
-
+import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [loadedEvents, setLoadedEvents] = useState([])
@@ -13,7 +14,11 @@ function Home() {
   const {selectedEventContext, setSelectedEventContext} = useContext(eventContext)
   const [userLoggedIn, setUserLoggedin] = useState(false) 
   const[recomendationsbyId, setRecomendationsbyiD] = useState([])
+  const navigate = useNavigate()
 
+  function handleClickReq(e){
+    e === 'add-event' ? navigate('/addEvent') : navigate('/friends')
+}
 
   const getAllEvents = async () => {
     const events = await fetchAllEvents()
@@ -55,11 +60,34 @@ function Home() {
 
       {userLoggedIn && 
       <>     
-       <div id = 'secondaryContainer'>         
-        <h1 className='my-events'> My events </h1>  
+       <div id = 'secondaryContainer'>  
+       <div className='home-header'>      
+        <h1 className='my-events'> Events </h1> 
+        <div className="add-event"
+                onClick={() => handleClickReq("add-event")}
+                >
+                <InsertInvitationIcon 
+                 id="add-event-icon"
+                sx={{
+                heigth: 80, 
+                width: 80,
+                }}
+                />
+                </div>
+        </div>
+
+          {loadedEvents.length > 0 &&
           <div id='eventListContainer'>
           <EventList events={loadedEvents}/>
           </div>
+            }
+          
+          {loadedEvents.length === 0 &&
+          <div id='eventListContainer'>
+          <h1 className='noevents'>You have no Events </h1>
+          </div>
+            }
+
         </div>
     </>
 }

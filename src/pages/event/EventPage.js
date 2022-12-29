@@ -6,7 +6,8 @@ import moment from "moment";
 import SuggestionForm from '../../components/SuggestionForm'
 import {mainContext} from '../../helper/Context'
 import { Button } from "@mui/material";
-
+import {Cloudinary} from "@cloudinary/url-gen";
+import {AdvancedImage, responsive} from '@cloudinary/react';
 
 function EventPage(){
     const [mainEvent, setMainEvent] = useState({})
@@ -15,6 +16,12 @@ function EventPage(){
     const [addedVote, setAddedVote] = useState(false)
     const [votes, setVotes] = useState()
     const [winnerCtx, setWinnerCtx] = useState("")
+
+    const cld = new Cloudinary({
+        cloud: {
+          cloudName: 'djspbi0jk'
+        }
+      }); 
 
     /////Get event
     
@@ -95,7 +102,7 @@ function EventPage(){
         <>
         {mainEvent._id && 
         <div className="container">
-        <img alt="eventImage" src={mainEvent.picture} className="imageEvent"/>
+        <AdvancedImage alt="eventImage" cldImg={cld.image(`${mainEvent.picture}`)}  plugins={[responsive({steps:200})]} className="imageEvent"/>
 
 
         <div className="header">
@@ -104,7 +111,7 @@ function EventPage(){
         <h1 className="ename">{mainEvent.ename}</h1>
         <h2 className="invitedBy"> Organized by {mainEvent.owner.username} </h2>
         </div>
-        <h1 className="date"> {moment(mainEvent.date).format("MMM Do YY")}</h1>
+        <h1 className="date-eventpage"> {moment(mainEvent.date).format("MMM Do YY")}</h1>
         </div>
         </div>
 

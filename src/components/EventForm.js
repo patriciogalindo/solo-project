@@ -15,6 +15,7 @@ function EventForm(props) {
   const [word, setWord] = useState("")  
   const [filteredData, setFilteredData] = useState("")
   const [pictureInput, setPictureInput] = useState()
+  const [picture, setPicture] = useState()
   const navigate = useNavigate()
   
   const getUser = async () =>{
@@ -45,7 +46,8 @@ function EventForm(props) {
       "https://api.cloudinary.com/v1_1/djspbi0jk/image/upload", 
       formData
     ).then((response) => {
-      responseUrl = response.data.secure_url
+      console.log(response)
+      responseUrl = response.data.public_id
     })
 
     setDate(e.target.dateForm.value)  
@@ -96,21 +98,27 @@ function handleChange(e){
   }, [word])
 
 
-
-
-
 /////////////////////////////////////////////////////////////////////////
 
   return (
-    <div className='main-container'>
-    <Card style={{
-      height:'60%',
-      width: '30%',
-    }}>
+    <div className='main-container-ef'>
+    <Card className="card-eventform">
     <div className='event-form-container'>
       <h1 id='h1-form'> Add new Event</h1> 
 
+    
+
+
     <form className='form-class' onSubmit={(e) =>  handleClick(e)}>  
+    <div className='date-eventname-div'>
+        <input type="text" name="eventName" placeholder="Event Name"  className='name' onChange={(e) => setEventName(e.target.value) }/>
+
+        <input  className='date-eventform' onChange={(e) => setDate(e.target.value)}  type='date' name='dateForm' autoComplete='off'
+         min={new Date().toISOString().split('T')[0] }/>
+
+        
+        </div>
+       
       <div className='search-div'>
       <input
               type = "text"
@@ -151,35 +159,23 @@ function handleChange(e){
 
 
 
-        <input  className='date' onChange={(e) => setDate(e.target.value)}  type='date' name='dateForm' autoComplete='off' min={new Date().toISOString().split('T')[0] } >
-        
-        </input>
-        <input type="text" name="eventName" placeholder="Event Name"  className='name' onChange={(e) => setEventName(e.target.value) }></input> 
-       
-       
-       {/* {!picSelected &&
-       <>
-       <div className='choose'> <h2> Choose a picture or </h2> <h2 onClick={addOwnPic}>&nbsp; Add a your own</h2></div>
-        <div className='image-div' >
-          {pics && pics.map((e, index) => {
-             return <img className='ind-image' id={index} src={e} onClick={handleClickPhotos}/>
-          })}
-        </div>
-        </>
-} */}
-        {/* {picSelected &&
-        <div className='selected-img-div' >
-          <img className='ind-selected-img' src ={pics[picSelected]}/>
-        </div>
-        } */}
 
-  
-          <div><input type="file" 
+          
+          {!picture &&
+          <div className='pic-input'>
+            <input type="file" 
           onChange={(e) => {
             setPictureInput(e.target.files[0])
+            setPicture(URL.createObjectURL(e.target.files[0]))
           }}
           /></div>
-
+        }
+          
+          {picture &&
+          <div className='picture-eventform-div'>
+            <img className='picture-eventform' src={picture}/>
+          </div>
+          }
 
         
         <Button type='submit' variant='contained'> Send </Button>

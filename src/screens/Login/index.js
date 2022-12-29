@@ -18,10 +18,11 @@ function ScreenLogin(){
   }, [login] )
 
   return (
-      <div className='loginPage'> 
-       <Card sx={{
-        marginBottom: 50,
-       }} >   
+    <div className='login-container'>
+      {/* <div className='loginPage'>  */}
+       <Card
+       className="card-login"
+       >   
         <div className='logo-div'>
           <img src={logo} className="logo" />
         </div>
@@ -46,7 +47,7 @@ function ScreenLogin(){
         </div>
           </Card>
      </div> 
-     
+    //  </div>
   )
 }
 

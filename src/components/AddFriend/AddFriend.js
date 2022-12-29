@@ -122,17 +122,11 @@ function AddFriend(props){
 
 
 return (
-  <div className='main-container'>
-  <Card
-  sx={{
-    height: '45%', 
-    width: '30%',
-    padding: "0 1%",
-    display: 'flex'
-  }}
+  <div className='main-container-addfriend'>
+  <Card className="addfriend-card"
   >
 
-  <div className='addfriend-container'>
+  <div className='addfriend-container' data-testid="af-1">
     <div className='add-friend'>
       <h1 className='add-friend-h2'> Add a Friend</h1>
     <div className='input-search'>

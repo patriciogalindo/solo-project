@@ -34,7 +34,7 @@ function SuggestionForm(props) {
           label="Recommendation"
           id="outlined-size-small"
           size="small"  type="text" name="venue" onChange={(e) => setVenue(e.target.value) }></TextField> 
-    <Button variant='contained' type='submit'>Send</Button>
+    <Button variant='contained' type='submit' className='sf-btn'>Send</Button>
 </form>
 // </div>
   )

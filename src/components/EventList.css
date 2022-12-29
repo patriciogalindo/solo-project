@@ -6,5 +6,15 @@
     justify-content: space-evenly;
     align-content: flex-start;
     flex-direction: row;
-    padding: 0 1%;
+    padding: 3% 0 ;
 }
+
+
+@media (max-width: 820px) {
+    .eventList{
+      flex-direction: column;
+      align-content: center;
+    }
+  }
+
+

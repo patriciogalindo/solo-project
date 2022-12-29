@@ -5,14 +5,8 @@ import moment from "moment";
 import { mainContext, eventContext, navContext } from '../helper/Context'
 import Card from '@mui/material/Card'
 import {useNavigate} from "react-router-dom"
-import bar from '../images/bar.jpg'
-import club from '../images/club.jpg'
-import event from '../images/eventImage1.jpg'
-import hiking from '../images/hiking.jpg'
-import office from '../images/office.jpg'
-import outdoors from '../images/outdoors.jpg'
-import park from '../images/park.jpg'
-import restaurant from '../images/restaurant2.jpg'
+import {Cloudinary} from "@cloudinary/url-gen";
+import {AdvancedImage, responsive} from '@cloudinary/react';
 
 function Event(props) {
   const [loadedRecomendations, setLoadedRecomendations] = useState([])
@@ -21,6 +15,12 @@ function Event(props) {
   const {selectedEventContext, setSelectedEventContext} = useContext(eventContext)
   const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
   const navigate = useNavigate();
+
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'djspbi0jk'
+    }
+  }); 
 
   const getRecomendations = async () => {
     const recomendations = await fetchRecomendations(props.eventId)
@@ -55,17 +55,17 @@ function Event(props) {
     <Card sx={{
       boxShadow: 2, 
       width: "20%",
-      padding:"1%",
+      padding:".5%",
       marginBottom: "20px"
-      }} >
+      }} className="event-card" >
       <div className='content-container' onClick={() =>  handleClickSelect(props.eventId)}>
-      <img className='image' alt='eventPicture' src={props.picture} />
+      <AdvancedImage className='image' alt='eventPicture' cldImg={cld.image(`${props.picture}`)}  plugins={[responsive({steps:200})]}/>
       <div className='date-div'>
         <div className='ename-owner'>
       <h2 className="ename">   {props.ename}</h2>
       <p className="owner"> Organized by {props.owner.username}</p>
       </div>
-      <h2 className="date"> {moment(props.date).format("MMM Do YY")} </h2>
+      <h2 className="date-event"> {moment(props.date).format("MMM Do YY")} </h2>
       </div>
         
         
