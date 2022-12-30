@@ -22,6 +22,18 @@ function Login() {
         window.location.reload()
     }
 
+    const handleTouch = async (e) => {
+      e.preventDefault()
+      const combo = {
+          "username": username,
+          "password": password
+      }        
+      const data = await loginClient(combo)
+      if(data) localStorage.setItem('token', data.token)
+      window.location.reload()
+  }
+
+
   return (
         <form className="login-register-div">
           <div className="username-password">
@@ -31,7 +43,7 @@ function Login() {
               variant="outlined"
               type="text" name="username"
               placeholder="username"
-              onChange={(e) => setUsername(e.target.value) } 
+              onChange={(e) => setUsername(e.target.value)} 
                  />
                  </div>
 
@@ -46,7 +58,7 @@ function Login() {
                 onChange={(e) => setPassword(e.target.value) }
              />
              </div>
-            <Button id='login-btn' variant="outlined" onClick={handleClick}> Login </Button>
+            <Button id='login-btn' variant="outlined" onClick={handleClick} onTouchStart={handleTouch}> Login </Button>
         </form>
   )
 }

@@ -75,6 +75,7 @@ function Home() {
                 />
                 </div>
         </div>
+        
 
           {loadedEvents.length > 0 &&
           <div id='eventListContainer'>

@@ -13,6 +13,10 @@ function ScreenLogin(){
     login === true ? setLogin(false) : setLogin(true)
   }
 
+  function handleTouch(){
+    login === true ? setLogin(false) : setLogin(true)
+  }
+
   useEffect(() =>{
 
   }, [login] )
@@ -29,7 +33,6 @@ function ScreenLogin(){
 
 
        {login === true && 
-       
             <div className='login'>
           <Login/>
           </div>
@@ -42,13 +45,13 @@ function ScreenLogin(){
         }
 
         <div className='are-you-registered'>
-        <a onClick={handleClick}>  Are you not registered? Click here  </a>
+        <a onClick={handleClick} onTouchStart={handleTouch}>  Are you not registered? Click here  </a>
 
         </div>
           </Card>
      </div> 
     //  </div>
-  )
+  ) 
 }
 
 export default ScreenLogin
