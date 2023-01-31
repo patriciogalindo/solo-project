@@ -99,6 +99,24 @@ export function fetchAllUsers(){
     })
 }
 
+// export function fetchAllUsers(){
+//     return fetch('http://localhost:3100/users')
+//     .then(response => {
+//         return response.json()
+//     }).then(data => {
+//         return data
+//     })
+// }
+
+export function fetchAllUsers(){
+    return fetch('../../.netlify/functions/mongodb')
+    .then(response => {
+        return response.json()
+    }).then(data => {
+        return data
+    })
+}
+
 
 ////////////////////////
 
