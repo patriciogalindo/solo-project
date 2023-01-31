@@ -1,6 +1,6 @@
 import {  useState } from "react"
 import React from 'react'
-import {loginClient} from '../services/services'
+import {loginClient, fetchAllUsers} from '../services/services'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './loginRegister.css'
@@ -9,6 +9,12 @@ import './loginRegister.css'
 function Login() {
  const [password, setPassword] = useState('')
  const [username, setUsername] = useState('')
+
+ const getUsers = async () => {
+    const users = await fetchAllUsers()
+    setUsers(users)
+    return users
+  }
 
 
     const handleClick = async (e) => {
@@ -33,6 +39,7 @@ function Login() {
       window.location.reload()
   }
 
+  console.log(getUsers)
 
   return (
         <form className="login-register-div">

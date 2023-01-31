@@ -29,7 +29,7 @@ const handler = async (event) => {
   try {
       const collection = db.collection(process.env.MONGO_USERS)
       const results = await collection.find()
-    
+      
     return {
       statusCode: 200,
       body: JSON.stringify(results),
