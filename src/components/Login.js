@@ -9,6 +9,8 @@ import './loginRegister.css'
 function Login() {
  const [password, setPassword] = useState('')
  const [username, setUsername] = useState('')
+ const [users, setUsers] = useState([]);
+
 
  const getUsers = async () => {
     const users = await fetchAllUsers()
@@ -39,7 +41,7 @@ function Login() {
       window.location.reload()
   }
 
-  console.log(getUsers)
+  console.log(users)
 
   return (
         <form className="login-register-div">
