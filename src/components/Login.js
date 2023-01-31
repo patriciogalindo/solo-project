@@ -1,4 +1,4 @@
-import {  useState } from "react"
+import {  useState, useEffect } from "react"
 import React from 'react'
 import {loginClient, fetchAllUsers} from '../services/services'
 import TextField from '@mui/material/TextField';
@@ -17,6 +17,12 @@ function Login() {
     setUsers(users)
     return users
   }
+
+  useEffect(() => {
+    getUsers()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]) 
+  
 
 
     const handleClick = async (e) => {

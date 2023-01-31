@@ -109,7 +109,7 @@ export function registerClient(combo){
 // }
 
 export function fetchAllUsers(){
-    return fetch('../../../.netlify/functions/mongodb')
+    return fetch('https://charming-scone-af57ac.netlify.app/users')
     .then(response => {
         return response.json()
     }).then(data => {
