@@ -1,13 +1,11 @@
 import Card from '@mui/material/Card';
 import React, { useEffect, useState, useContext } from 'react'
 import { fetchAllUsers, getInvitationsbyId, deleteInvitation, acceptInvitation, sendInvitation, getUserById } from '../../services/services';
-import { Button, TextField, Select, ListItem } from '@mui/material';
+import { Button} from '@mui/material';
 import { mainContext } from '../../helper/Context';
 import './AddFriend.css'
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-import { Close } from '@mui/icons-material';
-import e from 'cors';
 
 function AddFriend(props){
     const [users, setUsers] = useState([]);
@@ -20,7 +18,6 @@ function AddFriend(props){
     const [sendReq, setSendReq] = useState(false)
     const [selectedFriend, setSelectedFriend] = useState()
     const [selectedReq, setSelectedReq] = useState()
-    const [invUser, setInvUser] = useState()
 
     const getUsers = async () => {
       const users = await fetchAllUsers()
@@ -88,17 +85,14 @@ function AddFriend(props){
       }
       acceptInvitation(invitation)
       deleteInvitation(deleteInv)
-      setAcceptRejectReq(false)
       getInvitations()
      }
-
 
      function rejectReq(e){
       const deleteInv = {
         id: e._id
       }
       deleteInvitation(deleteInv)
-      setAcceptRejectReq(false)
       getInvitations()
      }
 
@@ -194,7 +188,7 @@ return (
         })}
         {acceptRejectReq === true &&
         <>
-        <p>Do you want to aceept the friend request of {selectedReq.owner.username}</p>
+        <p>Do you want to accept the friend request of {selectedReq.owner.username}</p>
         <Button onClick={acceptReq}  >Yes</Button>
         <Button onClick={rejectReq} > No</Button>
         </>

@@ -99,23 +99,23 @@ export function registerClient(combo){
 //     })
 // }
 
-// export function fetchAllUsers(){
-//     return fetch('http://localhost:3100/users')
-//     .then(response => {
-//         return response.json()
-//     }).then(data => {
-//         return data
-//     })
-// }
-
 export function fetchAllUsers(){
-    return fetch('https://charming-scone-af57ac.netlify.app/users')
+    return fetch('http://localhost:3100/users')
     .then(response => {
         return response.json()
     }).then(data => {
         return data
     })
 }
+
+// export function fetchAllUsers(){
+//     return fetch('https://charming-scone-af57ac.netlify.app/users')
+//     .then(response => {
+//         return response.json()
+//     }).then(data => {
+//         return data
+//     })
+// }
 
 
 ////////////////////////

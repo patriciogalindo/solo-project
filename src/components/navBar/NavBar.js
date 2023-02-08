@@ -1,9 +1,7 @@
 import React, {useContext, useState, useEffect} from "react";
 import './navBar.css'
 import logo from "../../images/Democratize-logos 2/logo.png"
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import PersonIcon from '@mui/icons-material/Person';
-import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import Logout from "../Logout";
 import { navContext } from "../../helper/Context";
 import { getInvitationsbyId } from "../../services/services";
@@ -12,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 
 export default function NavBar(){
-    const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
+    // const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
     const [requestNum, setRequestNum] = useState()
     const navigate = useNavigate()
 
