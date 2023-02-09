@@ -100,7 +100,7 @@ export function registerClient(combo){
 // }
 
 export function fetchAllUsers(){
-    return fetch('http://localhost:3100/users')
+    return fetch('https://solo-8od8.onrender.com/users')
     .then(response => {
         return response.json()
     }).then(data => {
