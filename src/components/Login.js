@@ -9,27 +9,27 @@ import './loginRegister.css'
 function Login() {
  const [password, setPassword] = useState('')
  const [username, setUsername] = useState('')
- const [users, setUsers] = useState([]);
+//  const [users, setUsers] = useState([]);
 
 
- const getUsers = async () => {
-    const users = await fetchAllUsers()
-    setUsers(users)
-    return users
-  }
+//  const getUsers = async () => {
+//     const users = await fetchAllUsers()
+//     setUsers(users)
+//     return users
+//   }
 
-  useEffect(() => {
-    getUsers()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]) 
+//   useEffect(() => {
+//     getUsers()
+//   // eslint-disable-next-line react-hooks/exhaustive-deps
+//   },[]) 
   
 
 
     const handleClick = async (e) => {
         e.preventDefault()
         const combo = {
-            "username": username,
-            "password": password
+            "username": username.trim(),
+            "password": password.trim()
         }        
         const data = await loginClient(combo)
         if(data) localStorage.setItem('token', data.token)
@@ -46,8 +46,6 @@ function Login() {
       if(data) localStorage.setItem('token', data.token)
       window.location.reload()
   }
-
-  console.log(users)
 
   return (
         <form className="login-register-div">

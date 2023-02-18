@@ -13,7 +13,7 @@ function Home() {
   const {userContext, setUserContext} = useContext(mainContext)
   const {selectedEventContext, setSelectedEventContext} = useContext(eventContext)
   const [userLoggedIn, setUserLoggedin] = useState(false) 
-  const[recomendationsbyId, setRecomendationsbyiD] = useState([])
+  // const[recomendationsbyId, setRecomendationsbyiD] = useState([])
   const navigate = useNavigate()
 
   function handleClickReq(e){
@@ -25,7 +25,6 @@ function Home() {
      setLoadedEvents(events)
      setSelectedEventContext(events[0])
   }
-
 
   const getuser = async () => {
     const user = await getUserById()

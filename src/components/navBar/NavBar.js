@@ -3,16 +3,17 @@ import './navBar.css'
 import logo from "../../images/Democratize-logos 2/logo.png"
 import PersonIcon from '@mui/icons-material/Person';
 import Logout from "../Logout";
-import { navContext } from "../../helper/Context";
+import { mainContext, navContext } from "../../helper/Context";
 import { getInvitationsbyId } from "../../services/services";
 import { useNavigate } from "react-router-dom";
 
 
 
 export default function NavBar(){
-    // const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
+    const {numberNavContext} = useContext(navContext)
     const [requestNum, setRequestNum] = useState()
     const navigate = useNavigate()
+    // const {userContext, setUserContext} = useContext(mainContext)
 
     function handleClickReq(e){
         e === 'add-event' ? navigate('/addEvent') : navigate('/friends')
@@ -23,9 +24,10 @@ export default function NavBar(){
         setRequestNum(reqs.length)
       }
 
+
       useEffect(() => {
         getRequests()
-      },[])
+      },[numberNavContext])
 
       function handleclickLogo(){
         navigate('/')
@@ -44,8 +46,6 @@ export default function NavBar(){
                     <div className="request-received"
                     onClick={() => handleClickReq("request-received")}
                     >
-                        
-
 
                 <div className="person-box">
                 <PersonIcon

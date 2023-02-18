@@ -13,7 +13,7 @@ function Event(props) {
   const [loadedVotes, setLoadedVotes] = useState([])
   const {userContext} = useContext(mainContext)
   const {selectedEventContext, setSelectedEventContext} = useContext(eventContext)
-  const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
+  // const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
   const navigate = useNavigate();
 
   const cld = new Cloudinary({
@@ -44,7 +44,7 @@ function Event(props) {
 
   function handleClickSelect(e){
     setSelectedEventContext(props)
-    setSelectedNavContext("")
+    // setSelectedNavContext("")
     navigate(`/event/${e}`)
   }
   

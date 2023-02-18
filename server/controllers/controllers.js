@@ -213,9 +213,9 @@ async function addVote(req, res){
 async function deleteInvitation(req, res){
   try{
     const invitation = await Invitation.deleteOne(
-      {_id: req.body.id},
-      {}
+      {_id: req.body.id}
       )
+      console.log("delete")
     res.send(invitation)
   }catch{
     res.sendStatus(500)
@@ -224,17 +224,20 @@ async function deleteInvitation(req, res){
 
 async function acceptInvitation(req, res){
   try{
+    console.log("accept 1")
     const addFriend = await User.findOneAndUpdate(
       {_id: req.user._id}, 
       {$push: {friends: req.body.id}}
       )
+      console.log("accept 2")
     const addFriend2 = await User.findOneAndUpdate(
       {_id: req.body.id}, 
       {$push: {friends:req.user._id}}
     )
+      res.send(addFriend2)
       res.status(200)
   }catch{
-    res.status(500)
+    res.sendStatus(500)
   }
 }
 

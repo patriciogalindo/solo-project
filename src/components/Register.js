@@ -1,19 +1,39 @@
-import React, { useState } from 'react'
-import {registerClient} from '../services/services'
+import React, { useState, useEffect } from 'react'
+import {registerClient, fetchAllUsers} from '../services/services'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
 function Register() {
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
+    const [users, setUsers] = useState([]);
+
+
+    const getUsers = async () => {
+        const users = await fetchAllUsers()
+        setUsers(users)
+        return users
+    }
+
+    useEffect(() => {
+        getUsers()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[]) 
+
+    console.log(users)
 
     const handleClick = (e) => {
         e.preventDefault()
         const combo = {
-            "username": username,
-            "password": password
+            "username": username.trim(),
+            "password": password.trim()
         }
-        registerClient(combo)
+        console.log(username)
+        
+        for(let a of users) { 
+           if (a.username === username.trim()) return alert("user taken") 
+        }   
+         registerClient(combo)
         e.target.reset()    
     } 
 

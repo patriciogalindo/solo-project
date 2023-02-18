@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { fetchRecomendations, getEventById, getUserById, getVotesByEventId, addVote, addWinner} from "../../services/services";
 import './EventPage.css'
-import eventImage from '../../images/eventImage1.jpg';
 import moment from "moment";
 import SuggestionForm from '../../components/SuggestionForm'
 import {mainContext} from '../../helper/Context'
@@ -108,10 +107,10 @@ function EventPage(){
         <div className="header">
             <div className="ename-date">  
             <div className="ename-invited">
-        <h1 className="ename">{mainEvent.ename}</h1>
+        <h1 className="ename-ep">{mainEvent.ename}</h1>
         <h2 className="invitedBy"> Organized by {mainEvent.owner.username} </h2>
-        </div>
         <h1 className="date-eventpage"> {moment(mainEvent.date).format("MMM Do YY")}</h1>
+        </div>
         </div>
         </div>
 
@@ -119,14 +118,18 @@ function EventPage(){
             <div className="left">
         <div className="guests">
             <h1 className="attending">Attending</h1>
-            <div className="guest-div">
+            <div className="guest-div-ep">
+                <ul className="unlist-attending">
         {mainEvent.guests.map((e, index) => {
-            return( <span key={e._id} className="guest">{ (index ? ', ' : '') +  e.username}</span> )
+            
+            // return( <span key={e._id} className="guest">{ (index ? ', ' : '') +  e.username}</span> )
+            return(<li className="attending-list">{e.username}</li>)
 
         })}
+                </ul>
         </div>
         </div>
-
+{/* 
         {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winnerCtx === "" &&
         <div className="ranking">
         <h1 className="current-ranking"> Current Ranking </h1>
@@ -139,7 +142,7 @@ function EventPage(){
         )
        })}
        </div>
-        }
+        } */}
 
 
         </div>
@@ -165,9 +168,6 @@ function EventPage(){
         {recomendations.length === 0 && 
         <h1 className="currentSuggestions">Nobody has suggested</h1>
         }
-
-
-
     <SuggestionForm 
     eventIdprop = {mainEvent._id}
     getRecomendations= {getRecomendations}
@@ -204,8 +204,8 @@ function EventPage(){
 
         {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winnerCtx === "" &&
             <div className="top">
-                <h1>Currently winning</h1>
-                <h1>{recomendations[0].venue}</h1>
+                <h1 className="top-text">Currently winning</h1>
+                <h1 className="top-text">{recomendations[0].venue}</h1>
             </div>
         }
 

@@ -2,14 +2,13 @@ import Card from '@mui/material/Card';
 import React, { useEffect, useState, useContext } from 'react'
 import { fetchAllUsers, getInvitationsbyId, deleteInvitation, acceptInvitation, sendInvitation, getUserById } from '../../services/services';
 import { Button} from '@mui/material';
-import { mainContext } from '../../helper/Context';
+import { mainContext, navContext } from '../../helper/Context';
 import './AddFriend.css'
 import CheckOutlinedIcon from '@mui/icons-material/CheckOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 
 function AddFriend(props){
     const [users, setUsers] = useState([]);
-    const {userContext} = useContext(mainContext);
     const [user, setUser] = useState()
     const [filteredData, setFilteredData] = useState([]);
     const [word, setWord] = useState([]);
@@ -18,6 +17,7 @@ function AddFriend(props){
     const [sendReq, setSendReq] = useState(false)
     const [selectedFriend, setSelectedFriend] = useState()
     const [selectedReq, setSelectedReq] = useState()
+    const {numberNavContext, setNumberNavContext} = useContext(navContext)
 
     const getUsers = async () => {
       const users = await fetchAllUsers()
@@ -36,6 +36,8 @@ function AddFriend(props){
       setUser(user)    
     }
 
+    console.log(user)
+
     function filtered(){
       const nonfriends = users.filter(e => user.friends.some(a => a._id === e._id) === false)
       const newA = nonfriends.filter(e => e.username.slice(0, (word.length)) === word && e.username !== user.username) 
@@ -45,7 +47,7 @@ function AddFriend(props){
         setFilteredData([])
       }
     }
-
+     
     function handleClickFiltered(e){
      setSendReq(true)
      setAcceptRejectReq(false)
@@ -75,7 +77,7 @@ function AddFriend(props){
      }
 
 
-     const acceptReq = (e) => {
+     const acceptReq =  async (e) => {
       const invitation = {
         id: e.owner._id
       }
@@ -83,17 +85,21 @@ function AddFriend(props){
       const deleteInv = {
         id: e._id
       }
-      acceptInvitation(invitation)
-      deleteInvitation(deleteInv)
+      await acceptInvitation(invitation)
+      await deleteInvitation(deleteInv)
+      // for(let a in invitations) invitations[a].invitee === e.invitee && invitations.splice(a,1)
       getInvitations()
+      numberNavContext === false ? setNumberNavContext(true) : setNumberNavContext(false)
      }
 
-     function rejectReq(e){
+      const rejectReq = async (e) =>{
       const deleteInv = {
         id: e._id
       }
-      deleteInvitation(deleteInv)
+      await deleteInvitation(deleteInv)
+      // for(let a in invitations) invitations[a].invitee === e.invitee && invitations.splice(a,1)
       getInvitations()
+      numberNavContext === false ? setNumberNavContext(true) : setNumberNavContext(false)
      }
 
      useEffect(() => {
@@ -115,7 +121,9 @@ function AddFriend(props){
 
 
 
-return (
+return (  
+<>
+
   <div className='main-container-addfriend'>
   <Card className="addfriend-card"
   >
@@ -186,14 +194,6 @@ return (
           </div>
           )
         })}
-        {acceptRejectReq === true &&
-        <>
-        <p>Do you want to accept the friend request of {selectedReq.owner.username}</p>
-        <Button onClick={acceptReq}  >Yes</Button>
-        <Button onClick={rejectReq} > No</Button>
-        </>
-        }
-
     </div>
 
     </div>
@@ -201,6 +201,7 @@ return (
   </div>
   </Card>
   </div>
+  </>
 )
 
 }

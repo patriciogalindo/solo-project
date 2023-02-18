@@ -87,18 +87,10 @@ export function registerClient(combo){
     }).then(response => {
         return response.json()
     }).then(data => {
+        console.log(data)
         return data
     })
 }
-
-// export function fetchAllUsers(){
-//     return fetch('https://solo-8od8.onrender.com/users')
-//     .then(response => {
-//         return response.json()
-//     }).then(data => {
-//         return data
-//     })
-// }
 
 export function fetchAllUsers(){
     return fetch('https://solo-8od8.onrender.com/users')
@@ -108,16 +100,6 @@ export function fetchAllUsers(){
         return data
     })
 }
-
-// export function fetchAllUsers(){
-//     return fetch('https://charming-scone-af57ac.netlify.app/users')
-//     .then(response => {
-//         return response.json()
-//     }).then(data => {
-//         return data
-//     })
-// }
-
 
 ////////////////////////
 

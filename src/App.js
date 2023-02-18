@@ -11,13 +11,13 @@ import NavBar from './components/navBar/NavBar';
 function App() {
   const [userContext, setUserContext] = useState({})
   const [selectedEventContext, setSelectedEventContext] = useState()
-  const[selectedNavContext, setSelectedNavContext] = useState()
+  const[numberNavContext, setNumberNavContext] = useState(true)
 
   return (
  
     <mainContext.Provider  value={{userContext, setUserContext}}>
       <eventContext.Provider value={{selectedEventContext, setSelectedEventContext}}>
-        <navContext.Provider value={{selectedNavContext, setSelectedNavContext}}>
+        <navContext.Provider value={{numberNavContext, setNumberNavContext}}>
 
         {localStorage.length > 0 && <NavBar/> }  
 
