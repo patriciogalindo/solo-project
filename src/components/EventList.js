@@ -3,6 +3,9 @@ import Event from './Event'
 import './EventList.css'
 
 function EventList(props) {
+  
+
+
     const info = props.events
   return (
     <div className='eventList'>

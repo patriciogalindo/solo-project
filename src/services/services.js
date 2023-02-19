@@ -46,7 +46,6 @@ export function addVote (vote){
 
 
 export function newEvent(event){
-    console.log(event)
     return fetch('https://solo-8od8.onrender.com/events',{
         method:'POST', 
         headers: {

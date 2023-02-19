@@ -70,7 +70,7 @@ async function me(req, res){
 
 async function getAllEvents(req, res){
   try{
-      const events = await Event.find().populate('guests').populate('owner');
+      const events = await Event.find().populate('guests').populate('owner').populate('recomendation');
       res.status(200) 
       res.send(events)       
     } catch(err){
@@ -82,7 +82,7 @@ async function getAllEvents(req, res){
 async function getEventbyUserIdOfGuest(req, res){
   try{
 
-      const events = await Event.find({ guests : { $all : [req.user._id] }}).populate('guests').populate('owner').sort({date: 'asc'}).exec()
+      const events = await Event.find({ guests : { $all : [req.user._id] }}).populate('recomendation').populate('guests').populate('owner').sort({date: 'asc'}).exec()
       res.status(200) 
       res.send(events)       
     } catch(err){
@@ -131,13 +131,28 @@ async function sendInvitation(req, res){
 
 async function getEvent(req, res){
   try{
-      const event = await Event.findById(req.params.eventid).populate('guests').populate('owner');
+      const event = await Event.findById(req.params.eventid).populate('guests').populate('owner').populate('recomendation');
       res.status(200) 
       res.send(event)       
     } catch(err){
       res.sendStatus(500)
     }
 }
+
+// async function addRecomendation(req, res){
+//   try{
+//       const data = {
+//         "owner": req.user._id,
+//         "event": req.body.event, 
+//         "venue": req.body.venue,
+//         "votes": req.body.votes
+//       }
+//       const newRecomendation =  await Recomendation.create(data)
+//        res.send(newRecomendation)
+//   } catch(error){
+//       res.sendStatus(500)
+//   }
+// }
 
 async function addRecomendation(req, res){
   try{
@@ -147,7 +162,11 @@ async function addRecomendation(req, res){
         "venue": req.body.venue,
         "votes": req.body.votes
       }
-      const newRecomendation =  await Recomendation.create(data)
+      const newRecomendation =  await Event.findOneAndUpdate(
+        {"_id": req.body.event},
+        {"$set": {"owner": req.user._id, "venue": req.body.venue}},
+        {new: true}
+      )
        res.send(newRecomendation)
   } catch(error){
       res.sendStatus(500)
@@ -215,7 +234,6 @@ async function deleteInvitation(req, res){
     const invitation = await Invitation.deleteOne(
       {_id: req.body.id}
       )
-      console.log("delete")
     res.send(invitation)
   }catch{
     res.sendStatus(500)
@@ -224,12 +242,10 @@ async function deleteInvitation(req, res){
 
 async function acceptInvitation(req, res){
   try{
-    console.log("accept 1")
     const addFriend = await User.findOneAndUpdate(
       {_id: req.user._id}, 
       {$push: {friends: req.body.id}}
       )
-      console.log("accept 2")
     const addFriend2 = await User.findOneAndUpdate(
       {_id: req.body.id}, 
       {$push: {friends:req.user._id}}

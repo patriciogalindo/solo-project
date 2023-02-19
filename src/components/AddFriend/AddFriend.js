@@ -87,7 +87,6 @@ function AddFriend(props){
       }
       await acceptInvitation(invitation)
       await deleteInvitation(deleteInv)
-      // for(let a in invitations) invitations[a].invitee === e.invitee && invitations.splice(a,1)
       getInvitations()
       numberNavContext === false ? setNumberNavContext(true) : setNumberNavContext(false)
      }
@@ -97,7 +96,6 @@ function AddFriend(props){
         id: e._id
       }
       await deleteInvitation(deleteInv)
-      // for(let a in invitations) invitations[a].invitee === e.invitee && invitations.splice(a,1)
       getInvitations()
       numberNavContext === false ? setNumberNavContext(true) : setNumberNavContext(false)
      }

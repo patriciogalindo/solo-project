@@ -20,6 +20,21 @@ const Event = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Recomendation"
         }
+    ], 
+    recomendation:[
+        {
+            venue: String,
+            owner:[{
+                type: Schema.Types.ObjectId,
+                ref: "User"
+            }], 
+            vote:[{
+                owner:[{
+                    type: Schema.Types.ObjectId,
+                    ref: "User"
+                }]
+            }]
+        }
     ]
 })
 

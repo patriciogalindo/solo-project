@@ -26,7 +26,8 @@ router.get('/event/:eventid', controller.getEvent)  //WORKS
 router.get('/eventU', authMiddleware, controller.getEventbyUserIdOfGuest) // WORKS
 
 
-router.post('/event/addRecomendation', authMiddleware, controller.addRecomendation) //WORKS
+// router.post('/event/addRecomendation', authMiddleware, controller.addRecomendation) 
+router.patch('/event/addRecomendation', authMiddleware, controller.addRecomendation)
 
 
 router.get('/event/recomendations/:eventid', controller.getRecomendationsbyEventId) //WORKS

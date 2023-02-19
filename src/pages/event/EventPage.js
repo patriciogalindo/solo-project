@@ -28,6 +28,7 @@ function EventPage(){
         const e =   await getEventById(window.location.pathname.split("/")[2])
         setMainEvent(e)
     }
+    
 
         const getVotes = async() => {
         const a = await getVotesByEventId(window.location.pathname.split("/")[2])
@@ -50,9 +51,6 @@ function EventPage(){
         getuser()
       }, [])
 
-    useEffect(() => {
-        getVotes()
-    }, [mainEvent])
 
     //////
 
@@ -67,6 +65,9 @@ function EventPage(){
         getRecomendations()
     }, [addedVote])
 
+    useEffect(() => {
+        getVotes()
+    },[] )
 
     function checkvotes(user){
       const bool =  votes.some((e) =>  e.owner === user )
@@ -121,30 +122,12 @@ function EventPage(){
             <div className="guest-div-ep">
                 <ul className="unlist-attending">
         {mainEvent.guests.map((e, index) => {
-            
-            // return( <span key={e._id} className="guest">{ (index ? ', ' : '') +  e.username}</span> )
             return(<li className="attending-list">{e.username}</li>)
 
         })}
                 </ul>
         </div>
         </div>
-{/* 
-        {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winnerCtx === "" &&
-        <div className="ranking">
-        <h1 className="current-ranking"> Current Ranking </h1>
-       {recomendations.map((e, index) => {
-        return (
-        <div key={index} className="venue-vote-btn">
-        <div className="venue">{e.venue}</div>
-        <div className="votes">{e.votes}</div>
-        </div>
-        )
-       })}
-       </div>
-        } */}
-
-
         </div>
 
 
@@ -152,7 +135,6 @@ function EventPage(){
         <div className="right">
         {recomendations.some(e => e.owner === userContext._id) === false &&
         <>          
-
                 <div className="suggestions">
                     {recomendations.length > 0 &&
                     <>
