@@ -3,9 +3,6 @@ import Event from './Event'
 import './EventList.css'
 
 function EventList(props) {
-  
-
-
     const info = props.events
   return (
     <div className='eventList'>
@@ -18,6 +15,8 @@ function EventList(props) {
             guests={event.guests}
             ename={event.ename}
             picture={event.picture}
+            recomendations={event.recomendation}
+            votes={event.vote}
             />
         })}
     </div>

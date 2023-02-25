@@ -5,6 +5,7 @@ const Event = new mongoose.Schema({
     date: Date,
     ename : String,
     picture: String,
+    sinopsis: String,
     owner:{   
         type: Schema.Types.ObjectId,
         ref: "User"
@@ -15,27 +16,29 @@ const Event = new mongoose.Schema({
                 ref: "User"
             }
     ], 
-    winner:[
-        {
-        type: Schema.Types.ObjectId,
-        ref: "Recomendation"
-        }
-    ], 
-    recomendation:[
-        {
+    winner: {
+        type: Boolean,
+        default: false
+    }, 
+    recomendation:[{
             venue: String,
-            owner:[{
+            owner:{
                 type: Schema.Types.ObjectId,
                 ref: "User"
-            }], 
-            vote:[{
-                owner:[{
-                    type: Schema.Types.ObjectId,
-                    ref: "User"
-                }]
-            }]
-        }
-    ]
+            }
+        }],
+    vote:[{
+        owner:{
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }, 
+        recomendationID:{
+            type: Schema.Types.ObjectId, 
+            ref: "Recomendation"
+        }, 
+        venue: String
+    }]
+
 })
 
 module.exports = mongoose.model('Event', Event)

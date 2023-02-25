@@ -16,6 +16,7 @@ function EventForm(props) {
   const [filteredData, setFilteredData] = useState("")
   const [pictureInput, setPictureInput] = useState()
   const [picture, setPicture] = useState()
+  const [sinopsis, setSinopsis ] = useState()
   const navigate = useNavigate()
   
   const getUser = async () =>{
@@ -46,7 +47,6 @@ function EventForm(props) {
       "https://api.cloudinary.com/v1_1/djspbi0jk/image/upload", 
       formData
     ).then((response) => {
-      console.log(response)
       responseUrl = response.data.public_id
     })
 
@@ -55,7 +55,8 @@ function EventForm(props) {
       "date": date,
       "guests": newArr, 
       "picture": responseUrl,
-      "ename": eventName
+      "ename": eventName,
+      "sinopsis": sinopsis
     }
     await newEvent(event)
     navigate('/')
@@ -112,7 +113,8 @@ function handleChange(e){
     <form className='form-class' onSubmit={(e) =>  handleClick(e)}>  
     <div className='date-eventname-div'>
         <input type="text" name="eventName" placeholder="Event Name"  className='name' onChange={(e) => setEventName(e.target.value) }/>
-
+        <textarea type="text" name="sinopsis" placeholder="Something about the event?"  rows="4"
+        className='sinopsis' onChange={(e) => setSinopsis(e.target.value) }/>
         <input  className='date-eventform' onChange={(e) => setDate(e.target.value)}  type='date' name='dateForm' autoComplete='off'
          min={new Date().toISOString().split('T')[0] }/>
 

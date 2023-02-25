@@ -1,6 +1,6 @@
 
 export function fetchAllEvents(){
-    return fetch('https://solo-8od8.onrender.com/eventU', {headers:{authorization: localStorage.getItem('token')}})
+    return fetch('http://localhost:3100/eventU', {headers:{authorization: localStorage.getItem('token')}})
     .then(response => {
         return response.json()
     }).then(data => {
@@ -10,7 +10,7 @@ export function fetchAllEvents(){
 
 
 export function getEventById(id){
-    return fetch(`https://solo-8od8.onrender.com/event/${id}`)
+    return fetch(`http://localhost:3100/event/${id}`)
     .then(response => {
         return response.json()
     }).then(data => {
@@ -19,7 +19,7 @@ export function getEventById(id){
 }
 
 export function fetchRecomendations(id){
-    return fetch(`https://solo-8od8.onrender.com/event/recomendations/${id}`)
+    return fetch(`http://localhost:3100/event/recomendations/${id}`)
     .then(response => {
         return response.json()
     }).then(data => {
@@ -28,7 +28,7 @@ export function fetchRecomendations(id){
 }
 
 export function addVote (vote){
-    return fetch('https://solo-8od8.onrender.com/event/recomendation/addVote',{
+    return fetch('http://localhost:3100/event/recomendation/addVote',{
         method: 'POST', 
         headers: {
             "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export function addVote (vote){
 
 
 export function newEvent(event){
-    return fetch('https://solo-8od8.onrender.com/events',{
+    return fetch('http://localhost:3100/events',{
         method:'POST', 
         headers: {
             "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export function newEvent(event){
 }
 
 export function loginClient(combo){
-    return fetch('https://solo-8od8.onrender.com/login',{
+    return fetch('http://localhost:3100/login',{
         method:'POST', 
         headers: {
             "Content-Type": "application/json"
@@ -77,7 +77,7 @@ export function loginClient(combo){
 }
 
 export function registerClient(combo){
-    return fetch('https://solo-8od8.onrender.com/users',  {
+    return fetch('http://localhost:3100/users',  {
         method: 'POST',
         headers: {
             "Content-Type": "application/json"
@@ -92,7 +92,7 @@ export function registerClient(combo){
 }
 
 export function fetchAllUsers(){
-    return fetch('https://solo-8od8.onrender.com/users')
+    return fetch('http://localhost:3100/users')
     .then(response => {
         return response.json()
     }).then(data => {
@@ -104,7 +104,7 @@ export function fetchAllUsers(){
 
 
 export function addRecomendation (recomendation){
-    return fetch('https://solo-8od8.onrender.com/event/addRecomendation',{
+    return fetch('http://localhost:3100/event/addRecomendation',{
         method: 'POST', 
         headers: {
             "Content-Type": "application/json",
@@ -120,7 +120,7 @@ export function addRecomendation (recomendation){
 }
 
 export function sendInvitation(invitation){
-    return fetch('https://solo-8od8.onrender.com/invitation', {
+    return fetch('http://localhost:3100/invitation', {
         method: 'POST', 
         headers: {
             "Content-Type": "application/json",
@@ -137,7 +137,7 @@ export function sendInvitation(invitation){
 
 
 export function getUserById(){
-    return fetch('https://solo-8od8.onrender.com/user/getbyId',  {headers:{authorization: localStorage.getItem('token')}})
+    return fetch('http://localhost:3100/user/getbyId',  {headers:{authorization: localStorage.getItem('token')}})
     .then(response => {
         return response.json()
     }).then(data => {
@@ -146,7 +146,7 @@ export function getUserById(){
 }
 
 export function getInvitationsbyId(){
-    return fetch('https://solo-8od8.onrender.com/invitation', {headers:{authorization: localStorage.getItem('token')}})
+    return fetch('http://localhost:3100/invitation', {headers:{authorization: localStorage.getItem('token')}})
     .then(response => {
         return response.json()
     }).then(data => {
@@ -155,7 +155,7 @@ export function getInvitationsbyId(){
 }
 
 export function votesByUserId(){
-    return fetch('https://solo-8od8.onrender.com/event/votes/userId',  {headers:{authorization: localStorage.getItem('token')}})
+    return fetch('http://localhost:3100/event/votes/userId',  {headers:{authorization: localStorage.getItem('token')}})
     .then(response => {
         return response.json()
     }).then(data => {
@@ -164,7 +164,7 @@ export function votesByUserId(){
 }
 
 export function addVoteToRecomendation(voteToRec){
-    return fetch('https://solo-8od8.onrender.com/addvote/recomendation',{
+    return fetch('http://localhost:3100/addvote/recomendation',{
         method: 'PUT', 
         body: JSON.stringify(voteToRec)
     }
@@ -176,7 +176,7 @@ export function addVoteToRecomendation(voteToRec){
 }
 
 export function deleteInvitation(id){
-    return fetch('https://solo-8od8.onrender.com/invitation', {
+    return fetch('http://localhost:3100/invitation', {
         method: 'DELETE', 
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(id)
@@ -188,7 +188,7 @@ export function deleteInvitation(id){
 }
 
 export function acceptInvitation(id){
-    return fetch('https://solo-8od8.onrender.com/invitation', {
+    return fetch('http://localhost:3100/invitation', {
         method: 'PATCH', 
         headers: {"Content-Type": "application/json", 
         authorization: localStorage.getItem('token')
@@ -202,7 +202,7 @@ export function acceptInvitation(id){
 }
 
 export function getVotesByEventId(id){
-    return fetch(`https://solo-8od8.onrender.com/vote/${id}`)
+    return fetch(`http://localhost:3100/vote/${id}`)
     .then(response => {
         return response.json()
     }).then(data => {
@@ -211,7 +211,8 @@ export function getVotesByEventId(id){
 }
 
 export function addWinner(winner){
-    return fetch('https://solo-8od8.onrender.com/addWinner', {
+    console.log(winner)
+    return fetch('http://localhost:3100/addWinner', {
         method: 'PATCH', 
         headers: {'Content-type': 'application/json', 
     }, 
@@ -222,3 +223,18 @@ export function addWinner(winner){
         return data
     })
 }
+
+export function addAvatar(avatar){
+    return fetch('http://localhost:3100/user/avatar', {
+        method: 'PATCH', 
+        headers: {'Content-type': 'application/json', 
+        authorization: localStorage.getItem('token')
+    }, 
+    body: JSON.stringify(avatar)
+    }).then(response => {
+        return response.json()
+    }).then(data=> {
+        return data
+    })
+}
+

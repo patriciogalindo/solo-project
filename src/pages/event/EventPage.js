@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { fetchRecomendations, getEventById, getUserById, getVotesByEventId, addVote, addWinner} from "../../services/services";
+import { getEventById, getUserById, addVote, addWinner} from "../../services/services";
 import './EventPage.css'
 import moment from "moment";
 import SuggestionForm from '../../components/SuggestionForm'
@@ -10,33 +10,36 @@ import {AdvancedImage, responsive} from '@cloudinary/react';
 
 function EventPage(){
     const [mainEvent, setMainEvent] = useState({})
-    const [recomendations, setRecomendations] = useState({})
     const {userContext, setUserContext} = useContext(mainContext)
-    const [addedVote, setAddedVote] = useState(false)
-    const [votes, setVotes] = useState()
-    const [winnerCtx, setWinnerCtx] = useState("")
+    const [winnerCtx, setWinnerCtx] = useState()
 
     const cld = new Cloudinary({
         cloud: {
           cloudName: 'djspbi0jk'
         }
       }); 
-
-    /////Get event
     
+
     const getEvent = async () => {
         const e =   await getEventById(window.location.pathname.split("/")[2])
-        setMainEvent(e)
-    }
-    
-
-        const getVotes = async() => {
-        const a = await getVotesByEventId(window.location.pathname.split("/")[2])
-        setVotes(a)
-        if(mainEvent._id && a.length === mainEvent.guests.length) {
-            setWinnerCtx(recomendations[0]._id)
+        if(e.guests.length === e.vote.length){
+            rankingVotes(e.vote)
+            if(e.winner === false){
+                const winner = 
+                        {   
+                            id: e._id,
+                            winner: true
+                        }
+                await addWinner(winner)
+            } 
+            const d =   await getEventById(window.location.pathname.split("/")[2])
+            setMainEvent(d)
+        } else{
+            setMainEvent(e)
         }
+        
     }
+
 
     const getuser = async () => {
         const user = await getUserById()
@@ -51,52 +54,33 @@ function EventPage(){
         getuser()
       }, [])
 
-
-    //////
-
-    ////// Get Recomendations
-
-    const getRecomendations = async () => {
-       const rec = await fetchRecomendations(window.location.pathname.split("/")[2])
-        setRecomendations(rec)
+    function checkvotes(){
+      const bool =  mainEvent.vote.some((e) =>  e.owner === userContext._id)
+      return bool 
     }
 
-    useEffect(() => {
-        getRecomendations()
-    }, [addedVote])
-
-    useEffect(() => {
-        getVotes()
-    },[] )
-
-    function checkvotes(user){
-      const bool =  votes.some((e) =>  e.owner === user )
-      return bool 
+    function rankingVotes(arr){
+        let votes = {}
+        for(let a of arr){
+            votes[a.venue] ? votes[a.venue]++ : votes[a.venue] = 1
+        }
+       const sorted =  Object.entries(votes).sort((a,b) => b[1] - a[1])
+       if(sorted.length === 1) setWinnerCtx(sorted[0][0])
+       if(sorted.length > 1 && sorted[0][1] !== sorted[1][1]) setWinnerCtx(sorted[0][0])
     }
 
     const handleClick = async (e) => {
         const vote = 
         {
             recomendation: e.target.dataset.recomendationId,
-            event: e.target.dataset.eventId
+            venue: e.target.dataset.venueId,
+            event: mainEvent._id
         }     
         await addVote(vote)
-        getVotes()
-        
-        if(winnerCtx){
-        const winner = {
-            id: mainEvent._id,
-            winner: winnerCtx
-        }
-        await addWinner(winner)
-
+        await getEvent()    
     }
 
-        await setAddedVote(true)
-    }
-
-
-    ////////////////////////////////////////////
+    console.log(mainEvent)
  
     return(
         <>
@@ -109,8 +93,6 @@ function EventPage(){
             <div className="ename-date">  
             <div className="ename-invited">
         <h1 className="ename-ep">{mainEvent.ename}</h1>
-        <h2 className="invitedBy"> Organized by {mainEvent.owner.username} </h2>
-        <h1 className="date-eventpage"> {moment(mainEvent.date).format("MMM Do YY")}</h1>
         </div>
         </div>
         </div>
@@ -118,14 +100,20 @@ function EventPage(){
         <div className="secondary-container">
             <div className="left">
         <div className="guests">
+        <h2 className="invitedBy"> Organized by {mainEvent.owner.username} </h2>
+        <h1 className="date-eventpage"> {moment(mainEvent.date).format("MMM Do YY")}</h1>
+        <h2 className="sinopsis-eventpage">{mainEvent.sinopsis}</h2>
             <h1 className="attending">Attending</h1>
             <div className="guest-div-ep">
-                <ul className="unlist-attending">
         {mainEvent.guests.map((e, index) => {
-            return(<li className="attending-list">{e.username}</li>)
+            return(<div key={index} className="attending-list">
+                <h2 className="attending-username">{e.username}</h2>
+                <AdvancedImage alt="eventpage-av" className="eventpage-avatar"
+                cldImg={cld.image(`${e.avatar}`)}  plugins={[responsive({steps:200})]}/>
+
+            </div>)
 
         })}
-                </ul>
         </div>
         </div>
         </div>
@@ -133,36 +121,39 @@ function EventPage(){
 
 
         <div className="right">
-        {recomendations.some(e => e.owner === userContext._id) === false &&
+        {mainEvent.recomendation.some(e => e.owner === userContext._id) === false &&
         <>          
                 <div className="suggestions">
-                    {recomendations.length > 0 &&
+                    {mainEvent.recomendation.length > 0 &&
                     <>
-                <h1 className="currentSuggestions">Your friends suggested</h1>
+                
+                <div className="currentSuggestions">
+                <h1>Your friends suggested</h1>
+                
+                
                 <div className="individual-suggestion-div">
-                {recomendations.map((e, index) => {
+                {mainEvent.recomendation.map((e, index) => {
                     return(<span key={e._id} className="suggestion">{ (index ? ', ' : '') + e.venue}  </span>)
                 })}
+                </div>
                 </div>
                 </>
         }
 
-        {recomendations.length === 0 && 
+        {mainEvent.recomendation.length === 0 && 
         <h1 className="currentSuggestions">Nobody has suggested</h1>
         }
     <SuggestionForm 
     eventIdprop = {mainEvent._id}
-    getRecomendations= {getRecomendations}
+    getEvent = {getEvent}
     /> 
     </div>
     </>
         }
 
-
-
-        {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === false && winnerCtx === "" &&
+        {mainEvent.recomendation.some(e => e.owner === userContext._id) === true && checkvotes() === false && !winnerCtx &&
         <div className="ranking">
-       {recomendations.map((e, index) => {
+       {mainEvent.recomendation.map((e, index) => {
         return (
         <div key={index} className="venue-vote-btn">
         <div className="venue">{e.venue}</div>
@@ -172,11 +163,12 @@ function EventPage(){
             sx={{color:"blue", 
                  cursor:"pointer"    
         }}
+        className="ep-vote-btn"
+        data-venue-id={e.venue}
         data-recomendation-id={e._id}
         data-event-id={e.event} 
         onClick={handleClick}
         > Vote </Button>
-        
         </div>
         </div>
         )
@@ -184,27 +176,27 @@ function EventPage(){
        </div>
         }
 
-        {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winnerCtx === "" &&
-            <div className="top">
-                <h1 className="top-text">Currently winning</h1>
-                <h1 className="top-text">{recomendations[0].venue}</h1>
-            </div>
+        {mainEvent.recomendation.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && !winnerCtx &&
+        <>
+            <h1 className="voting-process">Voting going on </h1>
+            {mainEvent.recomendation.map((e, index) => {
+                return(
+                    <div key={index} className="venue">{e.venue}</div>
+                )
+            })
+        }
+        </>
         }
 
-            {recomendations.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winnerCtx &&
+            {mainEvent.recomendation.some(e => e.owner === userContext._id) === true && checkvotes(userContext._id) === true && winnerCtx &&
             <div className="top">
-                <h1>We have a winner</h1>
-                <h1>{recomendations[0].venue}</h1>
+                <h1 className="we-have-winner">We have a winner</h1>
+                <h1 className="mainevent-winner">{winnerCtx}</h1>
             </div>
         }
-
-
         </div>
-
         </div>
-        
-
-        </div> /// container
+        </div>
         }
         </>
     )

@@ -2,10 +2,38 @@
     height: 50%;
     display: flex;
     width: 100%;
+    flex-direction: column;
 }
 
-@media (max-width: 800px) {
+
+@media(max-width:1000px){
+    .form-css{
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-content: flex-start;
+
+    }
+}
+
+@media (max-width: 1000px) {
     .textfield{
         font-size: 1em;
+        width: 140px;
+        height: 30px;
+    }
+  }
+
+  @media(max-width: 1000px){
+    .sf-btn{
+        width:70px;
+        height: 40px;
+    }
+  }
+
+  @media(max-width: 1000px){
+    .suggestion-form-add-div{
+        display: flex;
+        align-self: flex-start;
     }
   }

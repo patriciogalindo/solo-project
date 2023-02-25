@@ -1,19 +1,14 @@
-import React, { useEffect, useState,useContext } from 'react';
-import {fetchRecomendations, addVote, votesByUserId} from '../services/services'
+import React, {useContext } from 'react';
 import './Event.css'
 import moment from "moment";
-import { mainContext, eventContext, navContext } from '../helper/Context'
+import { mainContext} from '../helper/Context'
 import Card from '@mui/material/Card'
 import {useNavigate} from "react-router-dom"
 import {Cloudinary} from "@cloudinary/url-gen";
 import {AdvancedImage, responsive} from '@cloudinary/react';
 
 function Event(props) {
-  const [loadedRecomendations, setLoadedRecomendations] = useState([])
-  const [loadedVotes, setLoadedVotes] = useState([])
   const {userContext} = useContext(mainContext)
-  const {selectedEventContext, setSelectedEventContext} = useContext(eventContext)
-  // const {selectedNavContext, setSelectedNavContext} = useContext(navContext)
   const navigate = useNavigate();
 
   const cld = new Cloudinary({
@@ -22,29 +17,7 @@ function Event(props) {
     }
   }); 
 
-  const getRecomendations = async () => {
-    const recomendations = await fetchRecomendations(props.eventId)
-    setLoadedRecomendations(recomendations)
-  }
-
-  useEffect(() => {
-    getRecomendations()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loadedVotes])
-
-  const getAllVotes = async () => {
-    const votes = await votesByUserId()
-     setLoadedVotes(votes)
-  }
-
-  useEffect(() => {
-    getAllVotes()
-  }, [])
-  
-
   function handleClickSelect(e){
-    setSelectedEventContext(props)
-    // setSelectedNavContext("")
     navigate(`/event/${e}`)
   }
   
@@ -73,37 +46,17 @@ function Event(props) {
           <h2 id="attending">Attending {props.guests.length} people</h2>
         </div>
 
-
+      
 
         <div className='pending-activities'>
           
-          {loadedRecomendations.some(e => e.owner === userContext._id) === false &&     
-          <>
-          <p className='pending-suggested'>Suggested</p>
-          </>
+          {props.recomendations.some(e => e.owner === userContext._id) === false ?    
+                <><p className='pending-suggested'>Suggested</p></> : <><p className='pending-suggested2'>Suggested</p></>
           }
 
-          {loadedRecomendations.some(e => e.owner === userContext._id) === true &&     
-          <>
-          <p className='pending-suggested2'>Suggested</p>
-          </>
+          {props.votes.some(e => e.owner === userContext._id) === false ?  
+          <><p className='pending-voted'>Voted</p></> : <><p className='pending-voted2'>Voted</p></>
           }
-
-
-          {loadedVotes.some(e => e.event === props.eventId) === false &&     
-          <>
-          <p className='pending-voted'>Voted</p>
-          </>
-          }
-
-          {loadedVotes.some(e => e.event === props.eventId) === true &&     
-          <>
-          <p className='pending-voted2'>Voted</p>
-          </>
-          }
-
-          
-          
         </div>
     </div>
     </Card>

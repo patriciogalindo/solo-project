@@ -1,7 +1,14 @@
 .ename-ep{
     margin-bottom: 0;
-    font-size: 48px;
+    font-size: 72px;
 }
+
+@media (max-width: 1000px) {
+    .ename-ep{
+        font-size: 40px;
+    }
+  }
+
 
 .container{
     display: flex;  
@@ -12,7 +19,7 @@
     margin: 0 auto;
     background-color: white;
 }
-@media (max-width: 820px) {
+@media (max-width: 1000px) {
     .container{
         width: 70% !important;
         height: auto;
@@ -23,7 +30,19 @@
   }
 
 
+.eventpage-avatar{
+    width: 55px;
+    height: 55px;
+    border-radius: 10%;
+    margin-right: 5px;
+}
 
+@media (max-width: 1000px) {
+    .eventpage-avatar{
+        width: 30px;
+        height: 30px;
+    }
+  }
 
 
 .imageEvent{
@@ -64,7 +83,7 @@
 
 @media (max-width: 820px) {
     .ename-date{
-        width: 70% !important;
+        width: 100% !important;
         height: auto;
         flex-direction: column;
     }
@@ -84,6 +103,12 @@
     margin-left: 10px;
 }
 
+@media(max-width:1000px){
+    .guests{
+        margin:0;
+    }
+}
+
 .guest{
     font-size: 1.5em;
     margin: 0;
@@ -98,12 +123,18 @@
     height: auto;
 }
 
+@media (max-width: 1000px) {
+    .guest-div-ep{
+        display: flex;
+        flex-direction: row;
+    }
+  }
+
 .attending{
-    margin-right: 30px;
     margin-bottom: 0;
     display: flex;
     margin-top: 0;
-    padding-top: 10%;
+    padding-top:3%;
 }
 
 .secondary-container{
@@ -111,7 +142,7 @@
     display: flex;
 }
 
-@media (max-width: 820px) {
+@media (max-width: 1000px) {
     .secondary-container{
         width: 100% !important;
         height: auto;
@@ -127,9 +158,10 @@
 .left{
     width: 100%;
     padding-left: 1%;
+    padding-top: 3%;
 }
 
-@media (max-width: 820px) {
+@media (max-width: 1000px) {
     .left{
         padding-left: 1%;
         width: 100% !important;
@@ -148,50 +180,49 @@
     align-items: center;
     flex-direction: column;
     padding-right: 1%;
+    padding-top: 3%;
 }
 
-@media (max-width: 820px) {
+@media (max-width: 1000px) {
     .right{
+        display: flex;
         padding-right: 1%;
         width: 95% !important;
         height: auto;
         flex-direction: column;
-        justify-content: center;
-        align-content: center;
-        margin: 0 auto;
-
+        padding-left: 1%;
     }
   }
 
 .currentSuggestions{
-margin-bottom: 0;
+margin: 0;
+height: auto;
+min-height: 20%;
 }
 
-@media (max-width: 820px) {
+@media (max-width: 1000px) {
     .currentSuggestions{
         width: 100% !important;
         height: auto;
         flex-direction: column;
-        justify-content: center;
-        align-content: center;
         margin: 0 auto;
-        font-size: 4vw;
+        font-size: 2vw;
     }
   }
 
-  @media (max-width: 820px) {
+  @media (max-width: 1000px) {
     h1{
-        font-size: 4vw;
+        font-size: 3vw;
     }
   }
 
-  @media (max-width: 820px) {
+  @media (max-width: 1000px) {
     h2{
         font-size: 4vw;
     }
   }
 
-  @media (max-width: 820px) {
+  @media (max-width: 1000px) {
     .guest{
         font-size: 4vw;
     }
@@ -206,7 +237,15 @@ margin-bottom: 0;
 .suggestions{
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
+
+@media (max-width: 1000px) {
+    .suggestions{
+        height: auto;
+    }
+  }
+
 
 
 .individual-suggestion-div{
@@ -220,7 +259,16 @@ margin-bottom: 0;
     flex-direction: column;
     width: 100%;
     margin-left: 10px;
+    height: auto;
 }
+
+@media (max-width: 1000px) {
+    .ranking{
+        height: auto;
+        padding-top: 5%;
+    }
+  }
+
 
 .venue{
     display: flex;
@@ -228,6 +276,14 @@ margin-bottom: 0;
     font-size: 1.5em;
     align-self: center;
     font-weight: bold;
+    margin: 0;
+}
+
+@media(max-width:1000px){
+    .venue{
+        font-size: 1em;
+        align-self: flex-start;
+    }
 }
 
 .votes{
@@ -246,7 +302,8 @@ margin-bottom: 0;
 .venue-vote-btn{
     display: flex;
     flex-direction: row;
-    padding-top: 10%;
+    margin: 0;
+    height: auto;
 }
 
 .current-ranking{
@@ -254,7 +311,6 @@ margin-bottom: 0;
 }
 
 .date-eventpage{
-    border-radius: 5px;
     font-size: 1.3em;
     width: 100%;
     display: flex;
@@ -262,7 +318,7 @@ margin-bottom: 0;
     margin: 0;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1000px) {
     .date-eventpage{
         width: auto;
         font-size: 4vw;
@@ -271,7 +327,10 @@ margin-bottom: 0;
 
 .attending-list{
     list-style-type: none;
-    vertical-align: middle;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 2%;
 }
 
 .unlist-attending{
@@ -284,9 +343,54 @@ margin-bottom: 0;
 
 .top{
     margin: 0;
-    padding-top:10%;
+}
+
+@media(max-width:1000px){
+    .top{
+        align-self: flex-start;
+    }
 }
 
 .top-text{
+    margin: 0;
+}
+
+@media (max-width: 1000px) {
+    .ep-vote-btn{
+        width: 50px;
+        height: 30px;
+        font-size: 1em;
+    }
+  }
+
+  .ep-vote-btn{
+    font-size: 1.2em;
+    border-radius: 3%;
+  }
+
+  .attending-username{
+    align-self: center;
+    margin: 0;
+    font-size: 1.8em;
+  }
+
+  @media (max-width: 1000px) {
+    .attending-username{
+        display: none;
+    }
+  }
+
+.voting-process{
+    padding-bottom: 3%;
+    margin: 0;
+    display: flex;
+    align-self: center;
+}
+
+.we-have-winner{
+    margin: 0;
+}
+
+.mainevent-winner{
     margin: 0;
 }

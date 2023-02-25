@@ -2,10 +2,13 @@ const { Schema } = require('mongoose');
 const mongoose = require('../db');
 
 const User = new mongoose.Schema({
+    avatar: {
+        type: String,
+        default: 'avatar_x1djuh'
+    },
     username: {
     type: String,
     unique: true, 
-    avatar: String,
     }, 
     password: String,
     friends: [

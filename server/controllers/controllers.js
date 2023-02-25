@@ -70,7 +70,7 @@ async function me(req, res){
 
 async function getAllEvents(req, res){
   try{
-      const events = await Event.find().populate('guests').populate('owner').populate('recomendation');
+      const events = await Event.find().populate('guests').populate('owner')
       res.status(200) 
       res.send(events)       
     } catch(err){
@@ -82,7 +82,8 @@ async function getAllEvents(req, res){
 async function getEventbyUserIdOfGuest(req, res){
   try{
 
-      const events = await Event.find({ guests : { $all : [req.user._id] }}).populate('recomendation').populate('guests').populate('owner').sort({date: 'asc'}).exec()
+      const events = await Event.find({ guests : { $all : [req.user._id] }}).populate('recomendation').populate('vote')
+      .populate('guests').populate('owner').sort({date: 'asc'}).exec()
       res.status(200) 
       res.send(events)       
     } catch(err){
@@ -107,7 +108,8 @@ async function addEvent(req, res){
       "date": req.body.date, 
       "guests": req.body.guests,
       "ename": req.body.ename,
-      "picture": req.body.picture
+      "picture": req.body.picture,
+      "sinopsis": req.body.sinopsis
       }
       const newEvent =  await Event.create(event)
        res.send(newEvent)
@@ -139,33 +141,17 @@ async function getEvent(req, res){
     }
 }
 
-// async function addRecomendation(req, res){
-//   try{
-//       const data = {
-//         "owner": req.user._id,
-//         "event": req.body.event, 
-//         "venue": req.body.venue,
-//         "votes": req.body.votes
-//       }
-//       const newRecomendation =  await Recomendation.create(data)
-//        res.send(newRecomendation)
-//   } catch(error){
-//       res.sendStatus(500)
-//   }
-// }
-
 async function addRecomendation(req, res){
   try{
-      const data = {
-        "owner": req.user._id,
-        "event": req.body.event, 
-        "venue": req.body.venue,
-        "votes": req.body.votes
-      }
       const newRecomendation =  await Event.findOneAndUpdate(
-        {"_id": req.body.event},
-        {"$set": {"owner": req.user._id, "venue": req.body.venue}},
-        {new: true}
+        {_id: req.body.event},
+        {
+          $push: {
+          "recomendation":{
+          "owner": req.user._id,
+          "venue": req.body.venue
+         }}
+        }
       )
        res.send(newRecomendation)
   } catch(error){
@@ -185,23 +171,21 @@ async function getRecomendationsbyEventId(req, res){
 
 async function addVote(req, res){
   try{
-    const data = {
-      "owner": req.user._id,
-      "event": req.body.event, 
-      "recomendation": req.body.recomendation
-    }
-      const newVote =  await Vote.create(data)
-      await Recomendation.findByIdAndUpdate( 
-        {_id:req.body.recomendation},
-        {$inc: {votes:1}},
-        {new: true}
+     const newVote =  await Event.findByIdAndUpdate( 
+        {_id:req.body.event},
+        {$push: {
+          "vote":{
+            "owner" : req.user._id,
+            "recomendationID": req.body.recomendation,
+            "venue": req.body.venue
+          }
+          }}
         )
        res.send(newVote)
   } catch(error){
       res.sendStatus(500)
   }
 }
-
 
 
   
@@ -269,12 +253,27 @@ async function votesByEventId(req, res){
 
 async function addWinner(req, res){
   try{
-    const winner = await Event.findOneAndUpdate({_id: req.body.id}, 
-      {$push: {winner:req.body.winner}}
+    const newWinner = await Event.findOneAndUpdate(
+      {_id: req.body.id}, 
+      {$set: {winner:req.body.winner}}
       )
+      res.send(newWinner)
       res.status(200)
   }catch{
-    res.staus(500)
+    res.status(500)
+  }
+}
+
+async function addAvatar(req, res){
+  try{
+    const avatarAdded = await User.findOneAndUpdate(
+      {_id: req.user._id}, 
+      {$set: {avatar:req.body.avatar}}
+      )
+      res.send(avatarAdded)
+      res.status(200)
+  }catch{
+    res.status(500)
   }
 }
 
@@ -282,5 +281,5 @@ async function addWinner(req, res){
 module.exports =  {
 addUser, getAllUsers, getAllEvents, addEvent, getUser, getEvent, getEventbyUserIdOfGuest, 
 addRecomendation, getRecomendationsbyEventId, addVote, getVotesbyUserId, login, me, addVotetoRec, sendInvitation,
-getInvitationsbyId, deleteInvitation, acceptInvitation, votesByEventId, addWinner
+getInvitationsbyId, deleteInvitation, acceptInvitation, votesByEventId, addWinner, addAvatar
 }

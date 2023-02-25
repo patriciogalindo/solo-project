@@ -1,6 +1,6 @@
-import {  useState, useEffect } from "react"
+import {  useState } from "react"
 import React from 'react'
-import {loginClient, fetchAllUsers} from '../services/services'
+import {loginClient} from '../services/services'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import './loginRegister.css'
@@ -9,22 +9,8 @@ import './loginRegister.css'
 function Login() {
  const [password, setPassword] = useState('')
  const [username, setUsername] = useState('')
-//  const [users, setUsers] = useState([]);
 
-
-//  const getUsers = async () => {
-//     const users = await fetchAllUsers()
-//     setUsers(users)
-//     return users
-//   }
-
-//   useEffect(() => {
-//     getUsers()
-//   // eslint-disable-next-line react-hooks/exhaustive-deps
-//   },[]) 
   
-
-
     const handleClick = async (e) => {
         e.preventDefault()
         const combo = {

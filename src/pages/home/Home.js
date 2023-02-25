@@ -3,7 +3,7 @@ import './Home.css';
 import { fetchAllEvents, getUserById } from '../../services/services';
 import { useContext, useState } from 'react';
 import { useEffect } from 'react';
-import {mainContext, eventContext, navContext} from '../../helper/Context';
+import {mainContext} from '../../helper/Context';
 import ScreenLogin from '../../screens/Login';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import { useNavigate } from "react-router-dom";
@@ -11,9 +11,7 @@ import { useNavigate } from "react-router-dom";
 function Home() {
   const [loadedEvents, setLoadedEvents] = useState([])
   const {userContext, setUserContext} = useContext(mainContext)
-  const {selectedEventContext, setSelectedEventContext} = useContext(eventContext)
   const [userLoggedIn, setUserLoggedin] = useState(false) 
-  // const[recomendationsbyId, setRecomendationsbyiD] = useState([])
   const navigate = useNavigate()
 
   function handleClickReq(e){
@@ -23,7 +21,6 @@ function Home() {
   const getAllEvents = async () => {
     const events = await fetchAllEvents()
      setLoadedEvents(events)
-     setSelectedEventContext(events[0])
   }
 
   const getuser = async () => {
@@ -36,7 +33,6 @@ function Home() {
     if(loggedIn) setUserLoggedin(true)
   }
 
-
   useEffect(() => {
     getuser()
   }, [])
@@ -48,9 +44,7 @@ function Home() {
   useEffect(() => {
     loggedIn()
   },[])
-
  
-
   return (
 
     <>
