@@ -10,7 +10,7 @@
   }
 
 
-.container{
+.container-ep{
     display: flex;  
     justify-self: center;
     justify-content: center;
@@ -18,14 +18,16 @@
     height: 100%;
     margin: 0 auto;
     background-color: white;
+    flex-direction: column;
 }
 @media (max-width: 1000px) {
-    .container{
+    .container-ep{
         width: 70% !important;
         height: auto;
         padding-bottom: 3%;
         display: flex;
         justify-content: center;
+        flex-direction: column;
     }
   }
 
@@ -394,3 +396,5 @@ min-height: 20%;
 .mainevent-winner{
     margin: 0;
 }
+
+

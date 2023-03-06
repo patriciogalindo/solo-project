@@ -80,12 +80,11 @@ function EventPage(){
         await getEvent()    
     }
 
-    console.log(mainEvent)
  
     return(
         <>
         {mainEvent._id && 
-        <div className="container">
+        <div className="container-ep">
         <AdvancedImage alt="eventImage" cldImg={cld.image(`${mainEvent.picture}`)}  plugins={[responsive({steps:200})]} className="imageEvent"/>
 
 
